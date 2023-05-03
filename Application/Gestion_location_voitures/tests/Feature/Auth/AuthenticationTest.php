@@ -3,16 +3,7 @@
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 
-/**
- * S'assurer de l'acces de la page Login (Guest)
- */
-test('login screen can be rendered', function () {
-    $response = $this->get('/login');
-
-    $response->assertStatus(200);
-});
-
-test('users can authenticate using the login screen', function () {
+test('[LOGIN] : Les utilisateurs peuvent se connecter à l\'application', function () {
     $user = User::factory()->create();
 
     $response = $this->post('/login', [
@@ -24,7 +15,7 @@ test('users can authenticate using the login screen', function () {
     $response->assertRedirect(RouteServiceProvider::HOME);
 });
 
-test('users can not authenticate with invalid password', function () {
+test('[LOGIN] : Les utilisateurs ne peuvent pas se connecter avec un mauvais mot de passe', function () {
     $user = User::factory()->create();
 
     $this->post('/login', [

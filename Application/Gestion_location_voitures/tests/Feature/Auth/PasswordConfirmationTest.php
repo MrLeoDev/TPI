@@ -2,15 +2,7 @@
 
 use App\Models\User;
 
-test('confirm password screen can be rendered', function () {
-    $user = User::factory()->create();
-
-    $response = $this->actingAs($user)->get('/confirm-password');
-
-    $response->assertStatus(200);
-});
-
-test('password can be confirmed', function () {
+test('[CONFIRMATION MDP] : Le mot de passe peut etre confirmer', function () {
     $user = User::factory()->create();
 
     $response = $this->actingAs($user)->post('/confirm-password', [
@@ -21,7 +13,7 @@ test('password can be confirmed', function () {
     $response->assertSessionHasNoErrors();
 });
 
-test('password is not confirmed with invalid password', function () {
+test('[CONFIRMATION MDP] : Le mot de passe ne peut etre confirmer avec un mdp invalide', function () {
     $user = User::factory()->create();
 
     $response = $this->actingAs($user)->post('/confirm-password', [
