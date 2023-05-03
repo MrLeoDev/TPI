@@ -93,3 +93,53 @@ Finir le modèle, faire le layout du projet, faire les models et les fichiers de
 >  8h50
 >  
 Je me lance sur la finalité du modèle. J'ai hâte de commencer la réalisation.
+
+>  10h45
+> 
+J'ai terminé le modèle, j'ai mis à jour mon kanban et mon repos ainsi que la maquette.  
+Je me suis lancé sur la réalisation, je fais les models et les tables à crée au moment d'une migration.  
+La table "users" et son model a déjà été crée mais avec le minimum d'information donc j'ai faire certaines corrections.  
+La table "langues" et le model sont terminés.
+
+>  11h11
+> 
+Tout a été faite concernant les models et les tables par contre j'ai eu une erreur de syntaxe sur "Hors d'usage".  
+Au lieu de passer du temps pour contourner l'erreur, j'ai simplement mis des underscores sur les espaces.  
+
+>  14h20
+> 
+Je m'assure des layouts, je vérifie du fonctionnement du "login" car il y a eu pas mal de modification dans le projet.  
+Les tests concernant le login fonctionne.
+Début des modifications et création des layouts importants.
+
+>  14h40 - 14h55
+>  
+Bon, il y a eu un test incencdie pour s'assurer que l'entreprise s'évacue correctement.  
+Mon élan a été arreté, on s'y remet.
+
+>  15h40
+>  
+J'ai du modifier la direction d'une connexion réussite pour qu'il passe sur la page "creation_modification_comptes".  
+Pour ce faire, il a fallu aller dans le "RouteServiceProvider" et modifier la valeur de la constante HOME.  
+J'ai effectuer des changements sur l'emplacement sur certains fichiers pour mieux respecter l'arborecense du dossier "views".  
+J'ai effecté une mise à jour de NPM et Composer.
+J'ai fait un petit logo gratuitement mais il a gardé l'arrière plan blanc. J'ai utilisé le site "remove.bg" pour m'en débaraser.
+Puis le favicon.ico pour transformer mon logo via favicon.io
+
+>  17h40
+>  
+La page "Login" est terminer avec son darkmode!  
+Le layout Guest est bien adapté.
+Maitenant je m'attaque à la navigation bar
+
+>  18h40
+>  
+J'ai eu un leger souci sur la navbar car le nom et prenom de l'utilisateur ne s'affichait pas.
+Mais j'ai pu la terminer et tout les layouts sont terminer pour correspondre au mieux à la maquette avec un peu de modernisation sur le design.
+Avec aussi le mode dark et le responsive mobile.
+Je me connecte parfaitement donc demain je peux faire enfin le plus gros, c'est à dire les sections.
+
+
+### Bilan de la journée
+Je suis assez content de moi sur l'avancement du projet.
+Mais je n'ai pas encore toucher à la documentation depuis la structure, je pense qu'elle fera partie des objectifs de demain.
