@@ -3,6 +3,9 @@
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 
+/**
+ * S'assurer de l'acces de la page Login (Guest)
+ */
 test('login screen can be rendered', function () {
     $response = $this->get('/login');
 
