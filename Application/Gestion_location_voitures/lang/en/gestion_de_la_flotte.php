@@ -8,5 +8,5 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'Title'         => 'Gestion de la flotte',
+    'Title'         => 'Fleet management',
 ];

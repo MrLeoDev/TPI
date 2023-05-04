@@ -8,9 +8,9 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'Title'         => 'Réinitialisation',
+    'Title'         => 'Ripristina',
     'labelEmail'    => 'Email',
-    'labelMDP'      => 'Mot de passe',
-    'labelCMDP'     => 'Confirmation',
-    'btnReset'      => 'Réinitialiser le mot de passe'
+    'labelMDP'      => 'Parola d\'ordine',
+    'labelCMDP'     => 'Conferma',
+    'btnReset'      => 'Resetta la password'
 ];

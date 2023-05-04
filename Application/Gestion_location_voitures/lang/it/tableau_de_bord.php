@@ -8,5 +8,5 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'Title'         => 'Tableau de bord',
+    'Title'         => 'Pannello di controllo',
 ];

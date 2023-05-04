@@ -8,5 +8,5 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'Title'         => 'Gestion des réservations',
+    'Title'         => 'Reservierungsmanagement',
 ];

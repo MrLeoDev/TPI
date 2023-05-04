@@ -12,6 +12,13 @@
                     {{ __("creation_modification_comptes.Title") }}
                 </div>
 
+                @if (Auth::user()->categorie->value == 'Client')
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    {{ __("creation_modification_comptes.Title") }}
+                </div>
+                @endif
+
+
             </div>
 
         </div>

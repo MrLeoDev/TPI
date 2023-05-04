@@ -8,8 +8,8 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'Title'         => 'MDP oublié?',
-    'Description'   => 'Vous avez oublié votre mot de passe ? Pas de problème. Indiquez-nous votre adresse électronique et nous vous enverrons un lien de réinitialisation du mot de passe qui vous permettra d\'en choisir un nouveau.',
+    'Title'         => 'MDP vergessen?',
+    'Description'   => 'Haben Sie Ihr Passwort vergessen ?Kein Problem.Geben Sie uns Ihre E -Mail -Adresse an und wir senden Ihnen einen Link zum Zurücksetzen des Kennworts, mit dem Sie eine neue auswählen können.',
     'labelEmail'    => 'Email',
-    'btnReset'      => 'Envoyer le lien de réinitialisation'
+    'btnReset'      => 'Senden Sie den Reset Link'
 ];

@@ -8,5 +8,5 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'Title'         => 'Création / Modification de comptes',
+    'Title'         => 'Creation / Modification of accounts',
 ];

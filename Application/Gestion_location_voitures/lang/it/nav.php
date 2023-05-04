@@ -9,10 +9,10 @@ return [
     */
 
     // Nav Links
-    'CMC'         => 'Création / Modification de comptes',
-    'GdR'         => 'Gestion des réservations',
-    'GdF'         => 'Gestion de la flotte',
-    'TdB'         => 'Tableau de bord',
-    'Deco'        => 'Déconnexion',
+    'CMC'         => 'Creazione / modifica dei conti',
+    'GdR'         => 'Gestione delle prenotazioni',
+    'GdF'         => 'Gestione della flotta',
+    'TdB'         => 'Pannello di controllo',
+    'Deco'        => 'Disconnessione',
 
 ];
