@@ -25,9 +25,21 @@
                         {{ __('nav.CMC') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('CMC')">
-                        {{ __('nav.GdR') }}
-                    </x-nav-link>
+                    @if (in_array(Auth::user()->categorie->value, ['Client', 'Gestionnaire']))
+                        <x-nav-link :href="route('GdR')" :active="request()->routeIs('GdR')">
+                            {{ __('nav.GdR') }}
+                        </x-nav-link>
+                    @endif
+
+                    @if (in_array(Auth::user()->categorie->value, ['Gestionnaire', 'Administrateur']))
+                        <x-nav-link :href="route('GdF')" :active="request()->routeIs('GdF')">
+                            {{ __('nav.GdF') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('TdB')" :active="request()->routeIs('TdB')">
+                            {{ __('nav.TdB') }}
+                        </x-nav-link>
+                    @endif
 
                 </div>
 
@@ -98,9 +110,26 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
 
         <div class="pt-2 pb-3 space-y-1">
+
             <x-responsive-nav-link :href="route('CMC')" :active="request()->routeIs('CMC')">
-                {{ __('Dashboard') }}
+                {{ __('nav.CMC') }}
             </x-responsive-nav-link>
+
+            @if (in_array(Auth::user()->categorie->value, ['Client', 'Gestionnaire']))
+                <x-responsive-nav-link :href="route('GdR')" :active="request()->routeIs('GdR')">
+                    {{ __('nav.GdR') }}
+                </x-responsive-nav-link>
+            @endif
+
+            @if (in_array(Auth::user()->categorie->value, ['Client', 'Gestionnaire']))
+                <x-responsive-nav-link :href="route('GdF')" :active="request()->routeIs('GdF')">
+                    {{ __('nav.GdF') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('TdB')" :active="request()->routeIs('TdB')">
+                    {{ __('nav.TdB') }}
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
@@ -112,9 +141,6 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">

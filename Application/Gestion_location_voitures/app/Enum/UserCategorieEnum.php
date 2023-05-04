@@ -3,7 +3,7 @@ namespace App\Enum;
 
 enum UserCategorieEnum:string
 {
-    case ADMIN = 'administrateur';
-    case GESTION = 'gestionnaire';
-    case client = 'client';
+    case ADMIN = 'Administrateur';
+    case GESTION = 'Gestionnaire';
+    case CLIENT = 'Client';
 }
