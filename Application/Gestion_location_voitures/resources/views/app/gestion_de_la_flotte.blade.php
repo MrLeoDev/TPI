@@ -166,6 +166,7 @@
 
             <x-alert-error :messages="session('statutErreur')" class="my-2" />
             <x-alert-success :messages="session('statutDeleteCar')" class="my-2" />
+            <x-alert-success :messages="session('statutCar')" class="my-2" />
 
             <div class="overflow-hidden sm:rounded-lg">
 
@@ -175,38 +176,40 @@
 
                             <figure class="flex flex-col px-10 pt-10">
                                 <img src="{{ asset($vehicule->image) }}" alt="{{ $vehicule->id }}" class="rounded-xl" />
-                                <h2 class="text-lg">{{ $vehicule->id }}</h2>
+                                <h2 class="text-xl text-[#ab0800] font-bold">{{ $vehicule->id }}</h2>
                             </figure>
 
                             <div class="items-center pt-0 text-center card-body">
 
                                 <div class="flex flex-col flex-wrap justify-between w-full">
                                     <div class="flex flex-row flex-wrap">
-                                        <p class="text-start">{{ $vehicule->marque->libelle }}</p>
-                                        <p class="text-end">{{ $vehicule->modele->libelle }}</p>
+                                        <p class="text-start text-lg text-[#ab0800]">{{ $vehicule->marque->libelle }}</p>
+                                        <p class="text-end text-lg text-[#ab0800]">{{ $vehicule->modele->libelle }}</p>
                                     </div>
                                     <div class="flex flex-row flex-wrap">
-                                        <p class="text-start">{{ $vehicule->type }}</p>
-                                        <p class="text-end">{{ $vehicule->tarif_journalier }} CHF/j</p>
+                                        <p class="text-start text-lg text-[#ab0800]">{{ $vehicule->type }}</p>
+                                        <p class="text-end text-lg text-[#ab0800]">{{ $vehicule->tarif_journalier }} CHF/j</p>
                                     </div>
                                 </div>
 
                                 <div class="before:bg-[#ab0800] after:bg-[#ab0800] divider my-0"></div>
 
                                 {{-- Statut du vehicule --}}
-                                <div class="card-actions">
+                                <div class="w-full card-actions">
                                     <x-input-label for="statutVE" :value="__('gestion_de_la_flotte.LabelStatut')"/>
-                                    <select id="statutVE" name="statutVE" class="w-full mt-1 select select-bordered dark:bg-white">
+                                    <select id="statutVE" name="statutVE" class="w-full mt-1 select select-bordered dark:bg-white"
+                                            {{ $vehicule->statut == \App\Enum\VehiculeStatutEnum::HORSU->value ? 'disabled' : '' }}
+                                            {{ $vehicule->statut == \App\Enum\VehiculeStatutEnum::LOUER->value ? 'disabled' : '' }}>
                                         @foreach (\App\Enum\VehiculeStatutEnum::cases() as $statut)
                                             @switch($vehicule->statut)
                                                 @case(\App\Enum\VehiculeStatutEnum::DISPO->value)
                                                     @if ($statut->value != \App\Enum\VehiculeStatutEnum::LOUER->value)
-                                                        <option value="{{ $statut->value }}" {{ $vehicule->statut == $statut->value ? 'selected' : '' }}>{{ $statut->value }}</option>
+                                                        <option data-idvehicule="{{ $vehicule->id }}" value="{{ $statut->value }}" {{ $vehicule->statut == $statut->value ? 'selected' : '' }}>{{ $statut->value }}</option>
                                                     @endif
                                                     @break
                                                 @case(\App\Enum\VehiculeStatutEnum::REVISION->value)
                                                     @if ($statut->value != \App\Enum\VehiculeStatutEnum::LOUER->value)
-                                                        <option value="{{ $statut->value }}" {{ $vehicule->statut == $statut->value ? 'selected' : '' }}>{{ $statut->value }}</option>
+                                                        <option data-idvehicule="{{ $vehicule->id }}" value="{{ $statut->value }}" {{ $vehicule->statut == $statut->value ? 'selected' : '' }}>{{ $statut->value }}</option>
                                                     @endif
                                                     @break
                                                 @case(\App\Enum\VehiculeStatutEnum::HORSU->value)
@@ -242,16 +245,16 @@
                                     @forelse ($locations as $location)
                                         @if ($location->vehicule_id == $vehicule->id)
                                             <div class="before:bg-[#ab0800] after:bg-[#ab0800] divider my-0"></div>
-                                            <div class="flex flex-row flex-wrap">
+                                            <div class="flex flex-row my-auto">
                                                 <div class="my-auto">
-                                                    <p>{{ $location->client()->prenom }} {{ $location->client()->nom }}</p>
+                                                    <h2 class="text-lg text-[#ab0800]">{{ $location->user->prenom }} {{ $location->user->nom }}</h2>
                                                 </div>
                                                     <div class="before:bg-[#ab0800] after:bg-[#ab0800] divider my-0 divider-horizontal"></div>
                                                 <div class="my-auto">
-                                                    <p>{{ __('gestion_de_la_flotte.DebutL') }}</p>
-                                                    <p>{{ $location->date_debut }}</p>
-                                                    <p>{{ __('gestion_de_la_flotte.FinL') }}</p>
-                                                    <p>{{ $location->date_fin }}</p>
+                                                    <h2 class="text-lg text-[#ab0800]">{{ __('gestion_de_la_flotte.DebutL') }}</h2>
+                                                    <p>{{ date('d/m/y', strtotime($location->date_debut)) }}</p>
+                                                    <h2 class="text-lg text-[#ab0800]">{{ __('gestion_de_la_flotte.FinL') }}</h2>
+                                                    <p>{{ date('d/m/y', strtotime($location->date_fin)) }}</p>
                                                 </div>
                                             </div>
                                         @endif
@@ -289,6 +292,22 @@
                     };
                     reader.readAsDataURL(this.files[0]);
             });
+
+            // Changer le statut du vehicule en ajax
+            $('[id=statutVE]').change(function () {
+                var id_vehicule = $(this).find(':selected').data('idvehicule');
+                var statut = $(this).val();
+
+                // AJAX en post pour mettre a jour le statut du vehicule
+                $.post("{{ route('GdF.updateStatut') }}",
+                    {
+                        '_token': $('meta[name=csrf-token]').attr('content'),
+                        id_vehicule: id_vehicule,
+                        statut: statut
+                    }, function (data) {
+                        window.location.href = '{{ route('GdF') }}';
+                    });
+            })
         });
     </script>
 

@@ -49,10 +49,9 @@ class GdfController extends Controller
      */
     public function addCar(Request $request)
     {
-        // dd($request->all());
         $request->validate([
             'vehicule_image'    => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'id'                => ['required', 'string', 'max:255'],
+            'id'                => ['required', 'string', 'max:255', 'unique:vehicules,id'],
             'tarifj'            => ['required', 'numeric'],
             'marque'            => ['required', 'string', 'max:255'],
             'modele'            => ['required', 'string', 'max:255'],
@@ -107,5 +106,29 @@ class GdfController extends Controller
         $vehicule->delete();
 
         return back()->with('statutDeleteCar', trans('gestion_de_la_flotte.statutDeleteCar', ['car' => $identifiant]));
+    }
+
+    public function updateStatut(Request $request)
+    {
+        // On verifie la requete
+        $request->validate([
+            'id_vehicule'       => ['required', 'exists:vehicules,id'],
+            'statut'            => ['required', Rule::in(VehiculeStatutEnum::DISPO->value,VehiculeStatutEnum::REVISION->value,VehiculeStatutEnum::HORSU->value,VehiculeStatutEnum::LOUER->value)],
+        ]);
+        try {
+            $vehiculeLouer = Vehicule::findOrFail($request->id_vehicule);
+        } catch (\Throwable $th) {
+            return response()->json(['erreur' => 'Une erreur est survenue...']);
+        }
+
+        // On met a jour le statut du vehicule
+        $vehiculeLouer->statut = $request->statut;
+        $vehiculeLouer->save();
+
+        // On recupere apres le rafraichissement de la page
+        session()->flash('statutCar', 'Statut mis a jour!');
+
+        // On retourne la promesse
+        return response()->json(['success' => 'Statut mis a jour!']);
     }
 }

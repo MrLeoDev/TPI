@@ -48,6 +48,7 @@ Route::middleware('auth')->group(function () {
         ->name('CMC.addUser');
 
     Route::get('/creation_modification_comptes/showUser/{id}', [CmcController::class, 'showUpdateUser'])
+        ->middleware('categorie:Administrateur')
         ->name('CMC.showUpdateUser');
 
     Route::post('/creation_modification_comptes/updateUser/{id}',[CmcController::class, 'updateUser'])
@@ -72,15 +73,23 @@ Route::middleware('auth')->group(function () {
         ->middleware('categorie:Gestionnaire')
         ->name('GdF.deleteCar');
 
+    Route::post('/gestion_de_la_flotte/updateStatut', [GdfController::class, 'updateStatut'])
+        ->middleware('categorie:Gestionnaire')
+        ->name('GdF.updateStatut');
+
     // Gestion des reservations
-    Route::middleware('categorie:Client,Gestionnaire')->group(function () {
-        Route::get('/gestion_des_reservation', [GdrController::class, 'index'])->name('GdR');
-    });
+    Route::get('/gestion_des_reservation', [GdrController::class, 'index'])
+        ->middleware('categorie:Client,Gestionnaire')
+        ->name('GdR');
+
+    Route::post('/gestion_des_reservation/bookCar', [GdrController::class, 'bookCar'])
+        ->middleware('categorie:Client,Gestionnaire')
+        ->name('GdR.bookCar');
 
     // Tableau de bord
-    Route::middleware('categorie:Gestionnaire,Administrateur')->group(function () {
-        Route::get('/tableau_de_bord', [TdbController::class, 'index'])->name('TdB');
-    });
+    Route::get('/tableau_de_bord', [TdbController::class, 'index'])
+        ->middleware('categorie:Gestionnaire,Administrateur')
+        ->name('TdB');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
