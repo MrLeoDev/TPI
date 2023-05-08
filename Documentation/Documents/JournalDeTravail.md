@@ -208,6 +208,12 @@ Je reprend là où je me suis arreté, c'est à dire la quasi finalité de la pa
 C'était dur de récuperer la durée de location, le tarif ainsi que la label du montant du véhicule concerner. J'ai fait un jquery de selection large avec la variable "this" puis j'ai mis des attributs de type "data-" a l'input de la durée pour récuperer le tarif et le numero de la carte du véhicule concerner. J'ai pu réflichir sur la réservation du client par le gestionnaire, en utilisant un input fantome qui récupère de la selection pour l'integrer a la "value" de l'input fantome. Je dois faire un argument non obligatoire pour la réservation et pour la recherche de la page aussi. j'ai encore pas mal de boulot.  
 Je met à jour le kanban et le repos aussi.
 
+>  14h15
+>
+La gestion des réservations (GdR) est presque terminer, je retourne sur la gestion de la flotte (GdF).  
+Car une fois terminer la page GdR, je peut vérifier que le prénom et nom du client s'affiche correctement, les dates de locations et que les statut réagissent correctement. Je dois encore m'amuser avec AJAX et le retour correct des données sur la BDD.
 
-
+>  18h00
+>
+J'ai enfin terminer les deux pages, qui ont été long et technique mais j'y suis parvenu maintenant j'attaque la dernière page qu'est le tableau de bord.
 ### Bilan de la journée
