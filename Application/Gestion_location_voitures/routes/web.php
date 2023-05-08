@@ -37,12 +37,40 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
 
     // Creation / Modification de comptes
-    Route::get('/creation_modification_comptes', [CmcController::class, 'index'])->name('CMC');
+    Route::get('/creation_modification_comptes', [CmcController::class, 'index'])
+        ->name('CMC');
+
+    Route::post('/creation_modification_comptes/update',[CmcController::class, 'update'])
+        ->name('CMC.update');
+
+    Route::post('/creation_modification_comptes',[CmcController::class, 'addUser'])
+        ->middleware('categorie:Administrateur')
+        ->name('CMC.addUser');
+
+    Route::get('/creation_modification_comptes/showUser/{id}', [CmcController::class, 'showUpdateUser'])
+        ->name('CMC.showUpdateUser');
+
+    Route::post('/creation_modification_comptes/updateUser/{id}',[CmcController::class, 'updateUser'])
+        ->middleware('categorie:Administrateur')
+        ->name('CMC.updateUser');
+
+    Route::post('/creation_modification_comptes/{id}', [CmcController::class, 'delete'])
+        ->middleware('categorie:Administrateur')
+        ->name('CMC.delete');
+
 
     // Gestion de la flotte
-    Route::middleware('categorie:Gestionnaire,Administrateur')->group(function () {
-        Route::get('/gestion_de_la_flotte', [GdfController::class, 'index'])->name('GdF');
-    });
+    Route::get('/gestion_de_la_flotte', [GdfController::class, 'index'])
+        ->middleware('categorie:Gestionnaire,Administrateur')
+        ->name('GdF');
+
+    Route::post('/gestion_de_la_flotte/addCar', [GdfController::class, 'addCar'])
+        ->middleware('categorie:Gestionnaire')
+        ->name('GdF.addCar');
+
+    Route::post('/gestion_de_la_flotte/deleteCar/{id}', [GdfController::class, 'deleteCar'])
+        ->middleware('categorie:Gestionnaire')
+        ->name('GdF.deleteCar');
 
     // Gestion des reservations
     Route::middleware('categorie:Client,Gestionnaire')->group(function () {

@@ -15,7 +15,7 @@ return new class extends Migration
             /**
              * Cle primaire
              */
-            $table->id();
+            $table->string('id')->primary();
 
             /**
              * Cle Etrangere
@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('image');
             $table->enum('type', ['Berline', 'Break', 'SUV', 'Monospace']);
             $table->enum('transmission', ['Manuel', 'Automatique']);
-            $table->enum('statut', ['Disponible', 'En révision', 'Hors_d_usage', 'Loué']);
+            $table->enum('statut', ['Disponible', 'En révision', 'Hors d’usage', 'Loué']);
             $table->decimal('tarif_journalier', 10,2)->default(0);
 
             /**

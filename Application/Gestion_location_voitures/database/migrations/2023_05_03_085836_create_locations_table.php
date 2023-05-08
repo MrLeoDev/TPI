@@ -20,7 +20,7 @@ return new class extends Migration
             /**
              * Cle Etrangere
              */
-            $table->unsignedBigInteger('vehicule_id');
+            $table->string('vehicule_id');
             $table->unsignedBigInteger('client_id');
 
             /**

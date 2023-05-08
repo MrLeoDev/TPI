@@ -142,4 +142,72 @@ Je me connecte parfaitement donc demain je peux faire enfin le plus gros, c'est 
 
 ### Bilan de la journée
 Je suis assez content de moi sur l'avancement du projet.
-Mais je n'ai pas encore toucher à la documentation depuis la structure, je pense qu'elle fera partie des objectifs de demain.
+
+
+## S1 : Jeudi 04 Mai 2023
+
+### Etape du projet
+Démarage des sections
+
+### Objectifs
+Finir le plus de section possible, avec les fichiers de test, les fichiers de traduction,
+les fonctionnalitées etc..
+
+### Déroulement de la journée
+>  8h00
+>  
+Je demmare a faire des bloc de section pour mieux répartir les fonctionnalitées de la page.
+
+>  10h30
+> 
+J'ai énormement eu de problème sur la réalisation du carousel, que j'ai décidé de le remplacer par une système d'overflow.
+Cela me permet d'eviter de surcharger de condition mon block de résumer et de le rendre le plus accèsible d'un point de vue utilisateur.
+Les fonctionnalités de l'administrateur, a été compliqué sur le plan de la modification car j'ai du passer par du AJAX pour afficher les informaitons sans recharger la page complète dans le modal de modification..
+
+>  13h00
+> 
+J'ai pu mettre en place les fonctionnalités, j'ai eu une erreur sur la gestion des routes concernant les middlewares, cela m'a fait perdre du temps sur la réalisation de la page 
+"Création/Modification de comptes."
+Les fichiers tests et langues sont faite avec l'option DarkMode ainsi que la résponsivité.
+
+>  14h30
+> 
+Je me suis lancé sur la réalisation de la page "Gestion de la flotte", ma première crainte est sur la création de deux tag avec système de séléction. J'ai patogé un peu mais j'ai rapidement trouver la solution qu'est le système de Datalist. Par le controlleur, je peux verifier son existance et sinon je la crée puis je renvoie l'information par l'index qui permet a la vue blade de boucler sur les tag existant dans la datalist.
+
+
+>  16h40
+>  
+J'ai eu des problèmes sur l'upload de l'image avec ça prévisualisation. La résponvité a décidé de m'embeter. J'ai du retoucher la structure de la table "Vehicule" car il y a eu plusieurs problèmes. La première est que la clé primaire était auto-incrémenter et en d'un nombre entier, alors que je souhaitais pouvoir la modifier en chaine de carcatere et qu'il soit obligatoire et non auto-incérmentale. La seconde est le nom du statut : Hors d'usage, les underscores sont pratique un moment mais par pour le moment de la réalisation. mais j'ai résolue le problème par l'utilisation d'une quote spécial.
+
+>  18h00
+>  
+Les fichiers de langues sont faite, aussi je dois faire les tests mais pour cela je dois 
+faire la gestion des réservations pour tester les résultats des véhicules loués. Le résponsive à été faite, le dark mode aussi.
+
+
+### Bilan de la journée
+Le projet avance. Je ne m'attendais pas à autant d'erreur ou de souci.
+Mentalement, ça été compliqué car je souhait terminer l'application rapidement pour effectuer la documentation mais je dois me resigner à attendre la semaine prochaine.  
+La gestion des réservations me fait un peu peur concernant le faite que le gestionnaire peut réserver un vehicule pour un client et que je dois faire en sorte que le calcul du montant soit faite en temps réels.
+
+## S2 : Lundi 08 Mai 2023
+
+### Etape du projet
+Finir les sections, pofiner le code (Nettoyage et correctement commenter), demarrer la documentation.
+
+### Objectifs
+Finir les sections, que le code soit propre et que je puisse commencer a toucher la documentation.
+
+### Déroulement de la journée
+>  8h00
+>  
+Je reprend là où je me suis arreté, c'est à dire la quasi finalité de la page "Gestion de la flotte" mais je dois réaliser la page "Gestion des réservations" pour la finir.
+
+>  10h30
+> 
+C'était dur de récuperer la durée de location, le tarif ainsi que la label du montant du véhicule concerner. J'ai fait un jquery de selection large avec la variable "this" puis j'ai mis des attributs de type "data-" a l'input de la durée pour récuperer le tarif et le numero de la carte du véhicule concerner. J'ai pu réflichir sur la réservation du client par le gestionnaire, en utilisant un input fantome qui récupère de la selection pour l'integrer a la "value" de l'input fantome. Je dois faire un argument non obligatoire pour la réservation et pour la recherche de la page aussi. j'ai encore pas mal de boulot.  
+Je met à jour le kanban et le repos aussi.
+
+
+
+### Bilan de la journée

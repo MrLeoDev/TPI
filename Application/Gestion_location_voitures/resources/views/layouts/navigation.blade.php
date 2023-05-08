@@ -19,7 +19,7 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden space-x-8 lg:-my-px lg:ml-10 lg:flex">
 
                     <x-nav-link :href="route('CMC')" :active="request()->routeIs('CMC')">
                         {{ __('nav.CMC') }}
@@ -46,7 +46,7 @@
             </div>
 
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ml-6">
+            <div class="hidden lg:flex lg:items-center lg:ml-6">
 
                 <x-dropdown align="right" width="48">
 
@@ -89,11 +89,11 @@
             </div>
 
             <!-- Hamburger -->
-            <div class="flex items-center -mr-2 sm:hidden">
+            <div class="flex items-center -mr-2 lg:hidden">
 
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 text-gray-400 transition duration-150 ease-in-out rounded-md dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400">
 
-                    <svg class="w-6 h-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                    <svg class="w-6 h-6" stroke="#c6c6c6" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
@@ -107,7 +107,7 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+    <div :class="{'block': open, 'hidden': ! open}" class="hidden lg:hidden">
 
         <div class="pt-2 pb-3 space-y-1">
 
@@ -121,7 +121,7 @@
                 </x-responsive-nav-link>
             @endif
 
-            @if (in_array(Auth::user()->categorie->value, ['Client', 'Gestionnaire']))
+            @if (in_array(Auth::user()->categorie->value, ['Administrateur', 'Gestionnaire']))
                 <x-responsive-nav-link :href="route('GdF')" :active="request()->routeIs('GdF')">
                     {{ __('nav.GdF') }}
                 </x-responsive-nav-link>
@@ -137,7 +137,7 @@
 
             <div class="px-4">
                 <div class="text-base font-medium text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
-                <div class="text-sm font-medium text-gray-500">{{ Auth::user()->email }}</div>
+                <div class="text-sm font-medium text-gray-400">{{ Auth::user()->email }}</div>
             </div>
 
             <div class="mt-3 space-y-1">
@@ -149,7 +149,7 @@
                     <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        {{ __('nav.Deco') }}
                     </x-responsive-nav-link>
 
                 </form>

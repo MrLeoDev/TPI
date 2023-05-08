@@ -24,6 +24,14 @@ class Vehicule extends Model
      * @var string
      */
     protected $table = 'vehicules';
+    protected $primaryKey = 'id';
+
+    /**
+     * Annuler l'aut-increment
+     *
+     * @var bool
+     */
+    public $incrementing = false;
 
     /**
      * Les attributs qui sont assignables en masse.

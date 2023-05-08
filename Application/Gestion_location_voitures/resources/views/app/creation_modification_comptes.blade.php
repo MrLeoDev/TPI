@@ -1,28 +1,378 @@
 <x-app-layout>
 
+    {{-- Nommer la page dans la tabulation --}}
     <x-slot name="namepage">{{ __('creation_modification_comptes.Title') }}</x-slot>
 
-    <div class="py-12">
+    <div class="flex flex-col gap-5 py-12">
 
-        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+        {{-- On retrouve la categorie ou aussi la valeur du montant des locations --}}
+        <x-block-content class="{{ Auth::user()->categorie->value == 'Client' ? 'mx-auto' : '' }}">
 
-            <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
+            <div class="overflow-hidden shadow-xl rounded-2xl">
 
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("creation_modification_comptes.Title") }}
-                </div>
+                @if (in_array(Auth::user()->categorie->value, ['Gestionnaire', 'Administrateur']))
+                    <div class="bg-white stat dark:border-4 dark:border-[#ab0800] dark:bg-[#c6c6c6] rounded-2xl">
+                        <div class="stat-title lgmax:text-sm dark:text-black">{{ __('creation_modification_comptes.LabelCategorie') }}</div>
+                        <div class="stat-value text-[#ab0800] lgmax:text-2xl">{{ Auth::user()->categorie->value }}</div>
+                    </div>
+                @else
+                    <div class="stats dark:border-4 dark:border-[#ab0800] dark:bg-[#c6c6c6] rounded-2xl bg-white">
 
-                @if (Auth::user()->categorie->value == 'Client')
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("creation_modification_comptes.Title") }}
-                </div>
+                        <div class="stat">
+                            <div class="stat-title lgmax:text-sm dark:text-black">{{ __('creation_modification_comptes.LabelCategorie') }}</div>
+                            <div class="stat-value text-[#ab0800] justify-self-end lgmax:text-2xl">{{ Auth::user()->categorie->value }}</div>
+                        </div>
+
+                        <div class="border-[#ab0800] stat">
+                            <div class="stat-title lgmax:text-sm dark:text-black">{{ __('creation_modification_comptes.LabelMotantDesLocations') }}</div>
+                            <div class="stat-value text-[#ab0800] lgmax:text-2xl">{{ Auth::user()->montant_des_locations }} CHF</div>
+                        </div>
+
+                    </div>
                 @endif
 
+            </div>
+
+        </x-block-content>
+
+        {{-- On fait un resumer en carousel des clients, s'il ne s'agit pas d'un client --}}
+        @if (in_array(Auth::user()->categorie->value, ['Gestionnaire', 'Administrateur']))
+            <x-block-content>
+
+                @if (Auth::user()->categorie->value == \App\Enum\UserCategorieEnum::ADMIN->value)
+                    {{-- Boutton -> Modal : Ajouter un comptes --}}
+                    <div class="flex items-center justify-center my-4">
+                        <label for="modalAjouter" class="inline-flex items-center px-4 py-2 bg-[#ab0800] border border-transparent rounded-md font-semibold text-xs text-white dark:text-white uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-red-500 focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
+                            {{ __('creation_modification_comptes.btnAjoutCompte') }}
+                        </label>
+                    </div>
+
+                    {{-- Alert d'erreur ou de réussite --}}
+                    <x-alert-error :messages="session('ErreurAddUser')" class="my-2" />
+                    <x-alert-success :messages="session('statutAddUser')" class="my-2" />
+                @endif
+
+                <div class="grid grid-flow-row gap-5 p-5 overflow-auto bg-white shadow-2xl dark:bg-[#c6c6c6] lgmax:max-h-60 lg:grid-flow-col lg:grid-rows-2 dark:border-4 dark:border-[#ab0800] rounded-2xl">
+
+                    {{-- Alert d'erreur ou de réussite --}}
+                    <x-alert-error :messages="session('statutErreur')" class="mt-2" />
+                    <x-alert-success :messages="session('statutDeleteUpdate')" class="mt-2" />
+
+                    @foreach ($clients as $client)
+
+                        <div class="border-4 min-w-max stats border-[#ab0800] smax:stats-vertical dark:bg-white">
+
+                            @if (Auth::user()->categorie->value == 'Gestionnaire')
+                                @if (in_array($client->categorie->value, ['Gestionnaire', 'Administrateur']))
+                                    <div class="stat">
+                                        <div class="stat-title dark:text-black">{{ $client->categorie->value }}</div>
+                                        <div class="stat-value text-[#ab0800] text-xl">{{ $client->prenom }} {{ $client->nom }}</div>
+                                    </div>
+                                @else
+                                    <div class="stat">
+                                        <div class="stat-title dark:text-black">{{ $client->categorie->value }}</div>
+                                        <div class="stat-value text-[#ab0800] text-xl">{{ $client->prenom }} {{ $client->nom }}</div>
+                                    </div>
+
+                                    <div class="border-[#ab0800] stat">
+                                        <div class="stat-title dark:text-black">{{ __('creation_modification_comptes.LabelMotantDesLocations') }}</div>
+                                        <div class="stat-value text-[#ab0800] text-xl justify-self-end">{{ $client->montant_des_locations }} CHF</div>
+                                    </div>
+                                @endif
+                            @endif
+
+                            {{-- S'il s'agit d'un administrateur on s'assure qu'il accede a ses fonctionalites --}}
+                            @if (Auth::user()->categorie->value == 'Administrateur')
+                                <div class="stat">
+                                    <div class="stat-title dark:text-black">{{ $client->categorie->value }}</div>
+                                    <div class="stat-value text-[#ab0800] text-xl">{{ $client->prenom }} {{ $client->nom }}</div>
+
+                                    <div class="flex flex-row gap-2 mt-3 rounded-xl">
+
+                                            {{-- Modifier --}}
+                                            <a href="javascript:void(0)" id="showUserToUpdate" data-url="{{ route('CMC.showUpdateUser',['id' => $client->id]) }}">
+
+                                                <button class="h-8 min-h-0 px-2 text-black btn hover:bg-gray-400 bg-[#c6c6c6]">
+                                                    {{ __('creation_modification_comptes.btnModifier') }}
+                                                </button>
+
+                                            </a>
+
+                                            {{-- Supprimer un utilisateur --}}
+                                            <form action="{{ route('CMC.delete', ['id' => $client->id]) }}" method="post" name="formDelete">
+                                                @csrf
+                                                <button type="submit" name="FormDelete" class="h-8 min-h-0 px-2 text-white bg-red-700 btn hover:bg-red-400">
+                                                    {{ __('creation_modification_comptes.btnSupprimer') }}
+                                                </button>
+                                            </form>
+
+                                    </div>
+
+                                </div>
+                            @endif
+
+                        </div>
+
+                    @endforeach
+
+                </div>
+
+            </x-block-content>
+        @endif
+
+
+        {{-- Information personnelles / Mise a jour du mot de passe --}}
+        <x-block-content>
+
+            <div class="overflow-hidden sm:rounded-lg">
+
+                <div class="card lg:card-side bg-white dark:bg-[#c6c6c6] dark:border-4 dark:border-[#ab0800]">
+
+                    <div class="card-body">
+
+                        <div>
+                            <h2 class="card-title dark:text-black">{{ __('creation_modification_comptes.LabelInformationPerso') }}</h2>
+                        </div>
+
+                        <div class="flex flex-col justify-between gap-4">
+                            <div>
+                                <h3 class="dark:text-black">{{ __('creation_modification_comptes.LabelPrenom') }}</h3>
+                                <h1 class="text-[#ab0800] text-2xl smax:text-xl lg:text-3xl font-bold">{{ Auth::user()->prenom }}</h1>
+                            </div>
+
+                            <div>
+                                <h3 class="dark:text-black">{{ __('creation_modification_comptes.LabelNom') }}</h3>
+                                <h1 class="text-[#ab0800] text-2xl smax:text-xl lg:text-3xl font-bold">{{ Auth::user()->nom }}</h1>
+                            </div>
+
+                            <div>
+                                <h3 class="dark:text-black">{{ __('creation_modification_comptes.LabelEmail') }}</h3>
+                                <h1 class="text-[#ab0800] text-2xl smax:text-xl lg:text-3xl font-bold">{{ Auth::user()->email }}</h1>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <x-divider></x-divider>
+
+                    <div class="card-body">
+                        <div>
+                            <h2 class="card-title dark:text-black">{{ __('creation_modification_comptes.LabelMajMdp') }}</h2>
+                            <p class="text-red-300 dark:text-red-600">{{ __('creation_modification_comptes.LabelMajMdpDescription') }}</p>
+                            <x-alert-error :messages="$errors->get('password')" class="mt-2" />
+                            <x-alert-success :messages="session('statut')" class="mt-2" />
+                        </div>
+
+                        <form method="POST" action="{{ route('CMC.update') }}">
+
+                            @csrf
+
+                            <!-- Mot de passe -->
+                            <div class="">
+                                <x-input-label for="password" :value="__('creation_modification_comptes.LabelNewMdp')" />
+                                <x-text-input id="password" name="password" type="password" class="block w-full mt-1" autocomplete="new-password" />
+                            </div>
+
+                            <!-- Confirmation du mot de passe -->
+                            <div class="mt-4">
+                                <x-input-label for="password_confirmation" :value="__('creation_modification_comptes.LabelConfirmMdp')" />
+                                <x-text-input id="password_confirmation" name="password_confirmation" type="password" class="block w-full mt-1" autocomplete="new-password" />
+                            </div>
+
+                            {{-- Boutton : Mettre à jour --}}
+                            <div class="flex items-center justify-end mt-4">
+                                <x-primary-button name="FormUpdate">
+                                    {{ __('creation_modification_comptes.btnUpdate') }}
+                                </x-primary-button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
 
             </div>
+
+        </x-block-content>
+
+    </div>
+
+    <!-- Modal pour ajouter un compte -->
+    <input type="checkbox" id="modalAjouter" class="modal-toggle" />
+    <div class="modal">
+        <div class="modal-box">
+            <h2 class="card-title dark:text-black">{{ __('creation_modification_comptes.TitleA') }}</h2>
+            <p class="text-red-300 dark:text-red-600">{{ __('creation_modification_comptes.DescriptionA') }}</p>
+
+            <form action="{{ route('CMC.addUser') }}" method="POST" class="flex flex-col gap-5 mt-4">
+
+                @csrf
+
+                <div class="flex flex-row justify-between gap-5">
+                    {{-- Prenom --}}
+                    <div>
+                        <x-input-label for="prenom" :value="__('creation_modification_comptes.LabelPrenom')"/>
+                        <x-text-input id="prenom" name="prenom" type="text" class="block w-full mt-1" />
+                    </div>
+
+                    {{-- Nom --}}
+                    <div>
+                        <x-input-label for="nom" :value="__('creation_modification_comptes.LabelNom')"/>
+                        <x-text-input id="nom" name="nom" type="text" class="block w-full mt-1" />
+                    </div>
+                </div>
+
+                {{-- Email --}}
+                <div>
+                    <x-input-label for="email" :value="__('creation_modification_comptes.LabelEmail')"/>
+                    <x-text-input id="email" name="email" type="email" class="block w-full mt-1" />
+                </div>
+
+
+                <div class="flex flex-row justify-between gap-5">
+                    <!-- Mot de passe -->
+                    <div>
+                        <x-input-label for="password" :value="__('creation_modification_comptes.LabelNewMdp')" />
+                        <x-text-input id="password" name="password" type="password" class="block w-full mt-1" autocomplete="new-password" />
+                    </div>
+
+                    <!-- Confirmation du mot de passe -->
+                    <div>
+                        <x-input-label for="password_confirmation" :value="__('creation_modification_comptes.LabelConfirmMdp')" />
+                        <x-text-input id="password_confirmation" name="password_confirmation" type="password" class="block w-full mt-1" autocomplete="new-password" />
+                    </div>
+                </div>
+
+                {{-- Choisir la categorie du compte --}}
+                <div>
+                    <x-input-label for="categorie" :value="__('creation_modification_comptes.LabelCategorie')"/>
+                    <select id="categorie" name="categorie" class="w-full mt-1 select select-bordered">
+                        <option id="ChooseDisabled" disabled selected>{{ __('creation_modification_comptes.SelectDisabled') }}</option>
+                        @foreach (\App\Enum\UserCategorieEnum::cases() as $categorie)
+                            <option value="{{ $categorie->value }}">{{ $categorie->value }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                {{-- Bouton pour revenir ou ajouter un utilisateur --}}
+                <div class="modal-action">
+                    <label for="modalAjouter" class="btn">{{ __('creation_modification_comptes.btnRetour') }}</label>
+                    <x-primary-button>
+                        {{ __('creation_modification_comptes.btnAjouter') }}
+                    </x-primary-button>
+                </div>
+
+            </form>
 
         </div>
 
     </div>
+
+    <!-- Modal pour modifer un compte -->
+    <input type="checkbox" id="modalModifier" class="modal-toggle" />
+    <div class="modal">
+        <div class="modal-box">
+            <h2 id="TitleModifier" class="card-title dark:text-black"></h2>
+            <p class="text-red-300 dark:text-red-600">{{ __('creation_modification_comptes.DescriptionM') }}</p>
+
+            <form id="formUpdate" method="POST" class="flex flex-col gap-5 mt-4">
+
+                @csrf
+
+                <div class="flex flex-row justify-between gap-5">
+                    {{-- Prenom --}}
+                    <div>
+                        <x-input-label for="Uprenom" :value="__('creation_modification_comptes.LabelPrenom')"/>
+                        <x-text-input id="Uprenom" name="prenom" type="text" class="block w-full mt-1" />
+                    </div>
+
+                    {{-- Nom --}}
+                    <div>
+                        <x-input-label for="Unom" :value="__('creation_modification_comptes.LabelNom')"/>
+                        <x-text-input id="Unom" name="nom" type="text" class="block w-full mt-1" />
+                    </div>
+                </div>
+
+                {{-- Email --}}
+                <div>
+                    <x-input-label for="Uemail" :value="__('creation_modification_comptes.LabelEmail')"/>
+                    <x-text-input id="Uemail" name="email" type="email" class="block w-full mt-1" />
+                </div>
+
+
+                <div class="flex flex-row justify-between gap-5">
+                    <!-- Mot de passe -->
+                    <div>
+                        <x-input-label for="Upassword" :value="__('creation_modification_comptes.LabelNewMdp')" />
+                        <x-text-input id="Upassword" name="password" type="password" class="block w-full mt-1" autocomplete="new-password" />
+                    </div>
+
+                    <!-- Confirmation du mot de passe -->
+                    <div>
+                        <x-input-label for="Upassword_confirmation" :value="__('creation_modification_comptes.LabelConfirmMdp')" />
+                        <x-text-input id="Upassword_confirmation" name="password_confirmation" type="password" class="block w-full mt-1" autocomplete="new-password" />
+                    </div>
+                </div>
+
+                {{-- Modifier la categorie du compte --}}
+                <div>
+                    <x-input-label for="Ucategorie" :value="__('creation_modification_comptes.LabelCategorie')"/>
+                    <select id="Ucategorie" name="categorie" class="w-full mt-1 select select-bordered">
+                        @foreach (\App\Enum\UserCategorieEnum::cases() as $categorie)
+                            <option value="{{ $categorie->value }}">{{ $categorie->value }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                {{-- Bouton pour revenir ou modifier le compte --}}
+                <div class="modal-action">
+                    <label for="modalModifier" class="btn">{{ __('creation_modification_comptes.btnRetour') }}</label>
+                    <x-primary-button>
+                        {{ __('creation_modification_comptes.btnModifier') }}
+                    </x-primary-button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    {{-- Integration du code JS pour l'utilisation de AJAX via MODAL --}}
+    <script type="module">
+        // On attend que la page soit charger
+        $(document).ready(function () {
+
+            /* Quand on clique sur Modifier */
+            $('body').on('click', '#showUserToUpdate', function () {
+                var userURL = $(this).data('url');
+                $.get(userURL, function (data)
+                {
+                    // Ouvrir le modal "DaisyUi"
+                    $('#modalModifier').prop("checked", true);
+
+                    // Title Modifier
+                    $('#TitleModifier').text("{{ __('creation_modification_comptes.TitleM') }}" + data.prenom + " " + data.nom);
+
+                    // Forms Modifier
+                    $('#formUpdate').attr('action', "{{ route('CMC.updateUser','')}}"+"/" + data.id)
+                    $('#Uprenom').attr('value',data.prenom);
+                    $('#Uprenom').attr('placeholder',data.prenom);
+                    $('#Unom').attr('value',data.nom);
+                    $('#Unom').attr('placeholder',data.nom);
+                    $('#Uemail').attr('value',data.email);
+                    $('#Uemail').attr('placeholder',data.email);
+                    $("#Ucategorie").val(data.categorie).change();
+                })
+            });
+
+            // Fermer le modal en reload pour forcer l'AJAX d'intervenir
+            if (window.performance.getEntriesByType("navigation")[0].type == 'reload')
+            {
+                $('#modalModifier').prop("checked", false);
+            }
+
+        });
+    </script>
 
 </x-app-layout>
