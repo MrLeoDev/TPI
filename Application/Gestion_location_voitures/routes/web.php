@@ -43,6 +43,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/creation_modification_comptes/update',[CmcController::class, 'update'])
         ->name('CMC.update');
 
+    Route::post('/creation_modification_comptes/updateInfoPerso', [CmcController::class, 'updateInfoPerso'])
+        ->middleware('categorie:Administrateur')
+        ->name('CMC.updateInfoPerso');
+
     Route::post('/creation_modification_comptes',[CmcController::class, 'addUser'])
         ->middleware('categorie:Administrateur')
         ->name('CMC.addUser');
@@ -58,7 +62,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/creation_modification_comptes/{id}', [CmcController::class, 'delete'])
         ->middleware('categorie:Administrateur')
         ->name('CMC.delete');
-
 
     // Gestion de la flotte
     Route::get('/gestion_de_la_flotte', [GdfController::class, 'index'])
@@ -91,13 +94,13 @@ Route::middleware('auth')->group(function () {
         ->middleware('categorie:Gestionnaire,Administrateur')
         ->name('TdB');
 
+    Route::post('/tableau_de_bord/changeCurrentDate', [TdbController::class, 'changeCurrentDate'])
+        ->middleware('categorie:Gestionnaire,Administrateur')
+        ->name('TdB.changeCurrentDate');
+
     Route::post('/tableau_de_bord/updateStatut', [TdbController::class, 'updateStatut'])
         ->middleware('categorie:Gestionnaire')
         ->name('TdB.updateStatut');
-
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';

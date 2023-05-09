@@ -13,7 +13,7 @@
 
                     <div class="p-4 card-body">
 
-                        <h2 class="mx-auto card-title">CLIENTS</h2>
+                        <h2 class="mx-auto card-title text-[#ab0800]">CLIENTS</h2>
 
                         <div class="flex flex-col gap-3">
 
@@ -36,7 +36,7 @@
 
             <div class="shadow-xl card w-52 bg-white dark:bg-[#c6c6c6] border-4 border-[#ab0800]">
                 <div class="p-4 card-body">
-                    <h2 class="mx-auto card-title">FILTRE</h2>
+                    <h2 class="mx-auto card-title text-[#ab0800]">FILTRE</h2>
 
                     <form action="{{ route('GdR') }}" method="GET">
 
@@ -92,7 +92,7 @@
 
                             <div class="p-4 card-body">
 
-                                <h2 class="mx-auto card-title">CLIENTS</h2>
+                                <h2 class="mx-auto text-[#ab0800] card-title">CLIENTS</h2>
 
                                 <div class="flex flex-col gap-3">
 
@@ -116,7 +116,7 @@
                     <div class="shadow-xl card bg-white border-4 border-[#ab0800] lg:hidden">
                         <div class="card-body">
 
-                            <h2 class="mx-auto card-title">FILTRE</h2>
+                            <h2 class="mx-auto card-title text-[#ab0800]">FILTRE</h2>
 
                             <form action="{{ route('GdR') }}" method="GET">
 

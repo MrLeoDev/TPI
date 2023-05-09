@@ -104,3 +104,25 @@ test('[SUPPRIMER COMPTE] : Les administrateurs peuvent supprimer un compte', fun
     $this->assertDatabaseMissing('users', ['id' => $compte->id]);
     $response->assertStatus(302);
 });
+
+test('[UPDATE INFO PERSONNEL] : Les administrateur peuvent mettre à jour leurs informations personnelles', function () {
+    $admin = User::factory()->state(['categorie' => UserCategorieEnum::ADMIN])->create();
+
+    $infoPerso = array (
+        'prenom' => 'Test' ,
+        'nom'=> 'Modifier',
+        'email' => 'FakeEmailUpdate@test.com'
+    );
+
+    $response = $this
+         ->actingAs($admin)
+         ->post(route('CMC.updateInfoPerso'), $infoPerso);
+
+    // Résultat
+    $compte = User::find($admin->id);
+    $this->assertEquals('Test', $compte->prenom);
+    $this->assertEquals('Modifier', $compte->nom);
+    $this->assertEquals('FakeEmailUpdate@test.com', $compte->email);
+
+    $response->assertStatus(302);
+});

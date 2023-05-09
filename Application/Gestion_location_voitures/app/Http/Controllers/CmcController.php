@@ -143,5 +143,21 @@ class CmcController extends Controller
         return back()->with('statutDeleteUpdate', trans('creation_modification_comptes.StatutdeleteUser', ['nom' => $userName]));
     }
 
+    public function updateInfoPerso(Request $request)
+    {
+        $request->validate([
+            'prenom'            => ['nullable', 'string', 'max:255'],
+            'nom'               => ['nullable','string', 'max:255'],
+            'email'             => ['nullable','string', 'email', 'max:255', Rule::unique('users')->ignore(Auth::user()->id)],
+        ]);
+
+        $user = User::findOrFail(Auth::user()->id);
+        $user->email = $request->email ?? $user->email;
+        $user->nom = $request->nom ?? $user->nom;
+        $user->prenom = $request->prenom ?? $user->prenom;
+        $user->save();
+
+        return back()->with('statutInfoPerso', 'Information mis à jours');
+    }
 
 }

@@ -5,6 +5,6 @@ enum VehiculeTypeEnum:string
 {
     case BERLINE = 'Berline';
     case BREAK = 'Break';
-    case SUV = 'Suv';
+    case SUV = 'SUV';
     case MONOSPACE = 'Monospace';
 }

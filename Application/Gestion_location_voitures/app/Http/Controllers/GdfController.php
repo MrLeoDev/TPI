@@ -104,9 +104,9 @@ class GdfController extends Controller
         $identifiant = $vehicule->id;
 
         // On supprime l'image lier dans le storage
-        if(Storage::exists('public/' . $vehicule->image))
+        if(Storage::disk('public')->exists($vehicule->image))
         {
-            Storage::delete('public/' . $vehicule->image);
+            Storage::disk('public')->delete($vehicule->image);
         }
 
         // On supprime l'utilisateur

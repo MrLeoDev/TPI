@@ -6,6 +6,8 @@ use App\Enum\UserCategorieEnum;
 use App\Enum\VehiculeStatutEnum;
 use Illuminate\Http\UploadedFile;
 use App\Enum\VehiculeTransmissionEnum;
+use App\Models\Marque;
+use App\Models\Modele;
 use App\Models\Vehicule;
 use Illuminate\Support\Facades\Storage;
 
@@ -55,17 +57,59 @@ test('[AJOUTER VEHICULE] : Les gestionnaires peuvent ajouter un véhicule', func
     $this->assertEquals($statut, $vehicule->statut);
     $this->assertEquals($transmission, $vehicule->transmission);
     $response->assertStatus(302);
+
+    // On supprimer l'image test
+    Storage::disk('public')->delete($vehicule->image);
 });
 
 test('[SUPPRIMER VEHICULE] : Les gestionnaires peuvent supprimer un véhicule', function () {
     $gestionnaire = User::factory()->state(['categorie' => UserCategorieEnum::GESTION])->create();
-    $compte = User::factory()->create();
+    Marque::factory()->create();
+    Modele::factory()->create();
+    $vehicule = Vehicule::factory()->create();
 
     $response = $this
          ->actingAs($gestionnaire)
-         ->post(route('CMC.delete', $compte->id));
+         ->post(route('GdF.deleteCar', $vehicule->id));
 
     // Résultat
-    $this->assertDatabaseMissing('users', ['id' => $compte->id]);
+
+    // On regarde si l'image est bien supprimer
+    Storage::disk('public')->assertMissing($vehicule->image);
+    $this->assertDatabaseMissing('vehicules', ['id' => $vehicule->id]);
     $response->assertStatus(302);
 });
+
+test('[UPDATE/STATUT VEHICULE] : Les gestionnaires peuvent mettre à jour le statut d\'un véhicule', function () {
+
+    // Variables importante
+    $gestionnaire = User::factory()->state(['categorie' => UserCategorieEnum::GESTION])->create();
+    Marque::factory()->create();
+    Modele::factory()->create();
+    $statut = VehiculeStatutEnum::cases()[rand(0,2)]->value;
+    $vehicule = Vehicule::factory()->create();
+
+    // Prepare la requete
+    $updateVehicule = array (
+        'id_vehicule' => $vehicule->id,
+        'statut' => $statut,
+    );
+
+
+    // On envoie la requete par le gestionnaire
+    $response = $this
+         ->actingAs($gestionnaire)
+         ->post(route('GdF.updateStatut', $updateVehicule));
+
+    // Résultat
+    // On recupere le vehicule mis a jours normalement
+    $vehiculeU = Vehicule::find($vehicule->id);
+    // On verifie que le statut est bien a jour
+    $this->assertEquals($statut, $vehiculeU->statut);
+    $response->assertJson(['success' => 'Statut mis a jour!']);
+    $response->assertStatus(200);
+
+    // On supprimer l'image test
+    Storage::disk('public')->delete($vehiculeU->image);
+});
+

@@ -134,22 +134,57 @@
                             <h2 class="card-title dark:text-black">{{ __('creation_modification_comptes.LabelInformationPerso') }}</h2>
                         </div>
 
-                        <div class="flex flex-col justify-between gap-4">
-                            <div>
-                                <h3 class="dark:text-black">{{ __('creation_modification_comptes.LabelPrenom') }}</h3>
-                                <h1 class="text-[#ab0800] text-2xl smax:text-xl lg:text-3xl font-bold">{{ Auth::user()->prenom }}</h1>
+                        @if (Auth::user()->categorie->value == 'Administrateur')
+
+                            <form action="{{ route('CMC.updateInfoPerso') }}" method="POST" class="flex flex-col justify-between gap-4">
+                                @csrf
+                                {{-- Prenom --}}
+                                <div>
+                                    <x-input-label for="prenom" :value="__('creation_modification_comptes.LabelPrenom')"/>
+                                    <x-text-input id="prenom" name="prenom" type="text" class="block w-full mt-1" value="{{ Auth::user()->prenom }}" />
+                                </div>
+
+                                {{-- Nom --}}
+                                <div>
+                                    <x-input-label for="nom" :value="__('creation_modification_comptes.LabelNom')"/>
+                                    <x-text-input id="nom" name="nom" type="text" class="block w-full mt-1" value="{{ Auth::user()->nom }}" />
+                                </div>
+
+                                {{-- Email --}}
+                                <div>
+                                    <x-input-label for="email" :value="__('creation_modification_comptes.LabelEmail')"/>
+                                    <x-text-input id="email" name="email" type="email" class="block w-full mt-1" value="{{ Auth::user()->email }}" />
+                                </div>
+
+                                {{-- Boutton : Mettre à jour --}}
+                                <div class="flex items-center justify-end mt-4">
+                                    <x-primary-button>
+                                        {{ __('creation_modification_comptes.btnUpdate') }}
+                                    </x-primary-button>
+                                </div>
+
+                            </form>
+
+                        @else
+
+                            <div class="flex flex-col justify-between gap-4">
+                                <div>
+                                    <h3 class="dark:text-black">{{ __('creation_modification_comptes.LabelPrenom') }}</h3>
+                                    <h1 class="text-[#ab0800] text-2xl smax:text-xl lg:text-3xl font-bold">{{ Auth::user()->prenom }}</h1>
+                                </div>
+
+                                <div>
+                                    <h3 class="dark:text-black">{{ __('creation_modification_comptes.LabelNom') }}</h3>
+                                    <h1 class="text-[#ab0800] text-2xl smax:text-xl lg:text-3xl font-bold">{{ Auth::user()->nom }}</h1>
+                                </div>
+
+                                <div>
+                                    <h3 class="dark:text-black">{{ __('creation_modification_comptes.LabelEmail') }}</h3>
+                                    <h1 class="text-[#ab0800] text-2xl smax:text-xl lg:text-3xl font-bold">{{ Auth::user()->email }}</h1>
+                                </div>
                             </div>
 
-                            <div>
-                                <h3 class="dark:text-black">{{ __('creation_modification_comptes.LabelNom') }}</h3>
-                                <h1 class="text-[#ab0800] text-2xl smax:text-xl lg:text-3xl font-bold">{{ Auth::user()->nom }}</h1>
-                            </div>
-
-                            <div>
-                                <h3 class="dark:text-black">{{ __('creation_modification_comptes.LabelEmail') }}</h3>
-                                <h1 class="text-[#ab0800] text-2xl smax:text-xl lg:text-3xl font-bold">{{ Auth::user()->email }}</h1>
-                            </div>
-                        </div>
+                        @endif
 
                     </div>
 
@@ -200,7 +235,7 @@
     <!-- Modal pour ajouter un compte -->
     <input type="checkbox" id="modalAjouter" class="modal-toggle" />
     <div class="modal">
-        <div class="modal-box">
+        <div class="modal-box dark:bg-slate-400">
             <h2 class="card-title dark:text-black">{{ __('creation_modification_comptes.TitleA') }}</h2>
             <p class="text-red-300 dark:text-red-600">{{ __('creation_modification_comptes.DescriptionA') }}</p>
 
@@ -246,7 +281,7 @@
                 {{-- Choisir la categorie du compte --}}
                 <div>
                     <x-input-label for="categorie" :value="__('creation_modification_comptes.LabelCategorie')"/>
-                    <select id="categorie" name="categorie" class="w-full mt-1 select select-bordered">
+                    <select id="categorie" name="categorie" class="w-full mt-1 select select-bordered dark:bg-white dark:text-black">
                         <option id="ChooseDisabled" disabled selected>{{ __('creation_modification_comptes.SelectDisabled') }}</option>
                         @foreach (\App\Enum\UserCategorieEnum::cases() as $categorie)
                             <option value="{{ $categorie->value }}">{{ $categorie->value }}</option>
@@ -271,7 +306,7 @@
     <!-- Modal pour modifer un compte -->
     <input type="checkbox" id="modalModifier" class="modal-toggle" />
     <div class="modal">
-        <div class="modal-box">
+        <div class="modal-box dark:bg-slate-400">
             <h2 id="TitleModifier" class="card-title dark:text-black"></h2>
             <p class="text-red-300 dark:text-red-600">{{ __('creation_modification_comptes.DescriptionM') }}</p>
 
@@ -317,7 +352,7 @@
                 {{-- Modifier la categorie du compte --}}
                 <div>
                     <x-input-label for="Ucategorie" :value="__('creation_modification_comptes.LabelCategorie')"/>
-                    <select id="Ucategorie" name="categorie" class="w-full mt-1 select select-bordered">
+                    <select id="Ucategorie" name="categorie" class="w-full mt-1 select select-bordered dark:bg-white dark:text-black">
                         @foreach (\App\Enum\UserCategorieEnum::cases() as $categorie)
                             <option value="{{ $categorie->value }}">{{ $categorie->value }}</option>
                         @endforeach

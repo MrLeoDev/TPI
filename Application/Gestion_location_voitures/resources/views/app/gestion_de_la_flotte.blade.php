@@ -197,7 +197,7 @@
                                 {{-- Statut du vehicule --}}
                                 <div class="w-full card-actions">
                                     <x-input-label for="statutVE" :value="__('gestion_de_la_flotte.LabelStatut')"/>
-                                    <select id="statutVE" name="statutVE" class="w-full mt-1 select select-bordered dark:bg-white"
+                                    <select id="statutVE" name="statutVE" class="w-full mt-1 select select-bordered dark:disabled:bg-slate-400 dark:bg-white"
                                             {{ $vehicule->statut == \App\Enum\VehiculeStatutEnum::HORSU->value ? 'disabled' : '' }}
                                             {{ $vehicule->statut == \App\Enum\VehiculeStatutEnum::LOUER->value ? 'disabled' : '' }}>
                                         @foreach (\App\Enum\VehiculeStatutEnum::cases() as $statut)
@@ -230,7 +230,7 @@
                                     {{-- Si le vehicule est hors d'usage, on peut le supprimer --}}
                                     @if ($vehicule->statut == \App\Enum\VehiculeStatutEnum::HORSU->value)
                                         {{-- Supprimer un véhicule --}}
-                                        <form action="{{ route('GdF.deleteCar', ['id' => $vehicule->id]) }}" method="post" name="formDelete">
+                                        <form action="{{ route('GdF.deleteCar', ['id' => $vehicule->id]) }}" method="post" name="formDelete" class="mx-auto">
                                             @csrf
                                             <button type="submit" name="FormDelete" class="h-8 min-h-0 px-2 text-white bg-red-700 btn hover:bg-red-400">
                                                 {{ __('gestion_de_la_flotte.btnSupprimer') }}
