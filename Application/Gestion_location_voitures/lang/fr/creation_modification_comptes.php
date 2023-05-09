@@ -34,6 +34,7 @@ return [
     'StatutdeleteUser' => 'L\'utilisateur : :nom a bien été supprimé!',
     'StatutupdateUser' => 'L\'utilisateur : :nom a bien été mis à jour!',
     'StatutupdateMdp' => 'Votre mot de passe a été mis à jour',
+    'StatutInfoPerso' => 'Informations : mise à jours',
 
     # Modal
     'btnAjoutCompte' => 'Ajouter un compte',

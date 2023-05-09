@@ -157,7 +157,7 @@ class CmcController extends Controller
         $user->prenom = $request->prenom ?? $user->prenom;
         $user->save();
 
-        return back()->with('statutInfoPerso', 'Information mis à jours');
+        return back()->with('statutInfoPerso', trans('creation_modification_comptes.StatutInfoPerso'));
     }
 
 }

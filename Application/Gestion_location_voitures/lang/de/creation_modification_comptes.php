@@ -34,6 +34,7 @@ return [
     'StatutdeleteUser' => 'Der Benutzer : :nom wurde gelöscht!',
     'StatutupdateUser' => 'Der Benutzer : :nom wurde aktualisiert!',
     'StatutupdateMdp' => 'Dein Passwort wurde aktualisiert',
+    'StatutInfoPerso' => 'Informationen: Update',
 
     # Modal
     'btnAjoutCompte' => 'Füge ein Konto hinzu',

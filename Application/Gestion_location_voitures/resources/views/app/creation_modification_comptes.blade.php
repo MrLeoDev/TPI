@@ -1,46 +1,62 @@
+{{-- PAGE : CRÉATION / MODIFICATION DES COMPTES --}}
 <x-app-layout>
 
     {{-- Nommer la page dans la tabulation --}}
     <x-slot name="namepage">{{ __('creation_modification_comptes.Title') }}</x-slot>
 
+    {{-- S'assurer de la structure de la page --}}
     <div class="flex flex-col gap-5 py-12">
 
-        {{-- On retrouve la categorie ou aussi la valeur du montant des locations --}}
+        {{-- On retrouve la catégorie des utilisateurs --}}
+        {{-- S'il s'agit d'un client, la valeur du montant des locations également --}}
         <x-block-content class="{{ Auth::user()->categorie->value == 'Client' ? 'mx-auto' : '' }}">
 
             <div class="overflow-hidden shadow-xl rounded-2xl">
 
+                {{-- Condition Blade : S'agit d'un gestionnaire ou d'un administrateur --}}
                 @if (in_array(Auth::user()->categorie->value, ['Gestionnaire', 'Administrateur']))
+
+                    {{-- La catégorie --}}
                     <div class="bg-white stat dark:border-4 dark:border-[#ab0800] dark:bg-[#c6c6c6] rounded-2xl">
                         <div class="stat-title lgmax:text-sm dark:text-black">{{ __('creation_modification_comptes.LabelCategorie') }}</div>
                         <div class="stat-value text-[#ab0800] lgmax:text-2xl">{{ Auth::user()->categorie->value }}</div>
                     </div>
+
                 @else
+
+                    {{-- Condition Blade : Sinon, on afficher la catégorie et le montant des locations --}}
                     <div class="stats dark:border-4 dark:border-[#ab0800] dark:bg-[#c6c6c6] rounded-2xl bg-white">
 
+                        {{-- La catégorie --}}
                         <div class="stat">
                             <div class="stat-title lgmax:text-sm dark:text-black">{{ __('creation_modification_comptes.LabelCategorie') }}</div>
                             <div class="stat-value text-[#ab0800] justify-self-end lgmax:text-2xl">{{ Auth::user()->categorie->value }}</div>
                         </div>
 
+                        {{-- Montant des locations --}}
                         <div class="border-[#ab0800] stat">
                             <div class="stat-title lgmax:text-sm dark:text-black">{{ __('creation_modification_comptes.LabelMotantDesLocations') }}</div>
                             <div class="stat-value text-[#ab0800] lgmax:text-2xl">{{ Auth::user()->montant_des_locations }} CHF</div>
                         </div>
 
                     </div>
+
                 @endif
 
             </div>
 
         </x-block-content>
 
-        {{-- On fait un resumer en carousel des clients, s'il ne s'agit pas d'un client --}}
+        {{-- On affiche un résumer des utilisateurs --}}
+        {{-- Condition Blade : S'il s'agit d'un gestionnaire ou d'un administrateur --}}
         @if (in_array(Auth::user()->categorie->value, ['Gestionnaire', 'Administrateur']))
+
             <x-block-content>
 
+                {{-- Condition Blade : S'il s'agit d'un administrateur --}}
                 @if (Auth::user()->categorie->value == \App\Enum\UserCategorieEnum::ADMIN->value)
-                    {{-- Boutton -> Modal : Ajouter un comptes --}}
+
+                    {{-- Boutton -> Modal : Ajouter un compte --}}
                     <div class="flex items-center justify-center my-4">
                         <label for="modalAjouter" class="inline-flex items-center px-4 py-2 bg-[#ab0800] border border-transparent rounded-md font-semibold text-xs text-white dark:text-white uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-red-500 focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
                             {{ __('creation_modification_comptes.btnAjoutCompte') }}
@@ -50,40 +66,58 @@
                     {{-- Alert d'erreur ou de réussite --}}
                     <x-alert-error :messages="session('ErreurAddUser')" class="my-2" />
                     <x-alert-success :messages="session('statutAddUser')" class="my-2" />
+
                 @endif
 
+                {{-- Affichage en GRID dans les cartes d'utilisateurs  --}}
                 <div class="grid grid-flow-row gap-5 p-5 overflow-auto bg-white shadow-2xl dark:bg-[#c6c6c6] lgmax:max-h-60 lg:grid-flow-col lg:grid-rows-2 dark:border-4 dark:border-[#ab0800] rounded-2xl">
 
                     {{-- Alert d'erreur ou de réussite --}}
                     <x-alert-error :messages="session('statutErreur')" class="mt-2" />
                     <x-alert-success :messages="session('statutDeleteUpdate')" class="mt-2" />
 
+                    {{-- Condition Blade : Permet de boucler les utilisateurs existants --}}
                     @foreach ($clients as $client)
 
                         <div class="border-4 min-w-max stats border-[#ab0800] smax:stats-vertical dark:bg-white">
 
+                            {{-- Condition Blade : S'il s'agit d'un gestionnaire --}}
                             @if (Auth::user()->categorie->value == 'Gestionnaire')
+
+                                {{-- Condition Balde : Si dans les utilisateurs se trouve un gestionnaire et/ou un administrateur --}}
                                 @if (in_array($client->categorie->value, ['Gestionnaire', 'Administrateur']))
-                                    <div class="stat">
-                                        <div class="stat-title dark:text-black">{{ $client->categorie->value }}</div>
-                                        <div class="stat-value text-[#ab0800] text-xl">{{ $client->prenom }} {{ $client->nom }}</div>
-                                    </div>
-                                @else
+
+                                    {{-- La catégorie et le Prénom / Nom --}}
                                     <div class="stat">
                                         <div class="stat-title dark:text-black">{{ $client->categorie->value }}</div>
                                         <div class="stat-value text-[#ab0800] text-xl">{{ $client->prenom }} {{ $client->nom }}</div>
                                     </div>
 
+                                @else
+
+                                    {{-- La catégorie et le Prénom / Nom --}}
+                                    <div class="stat">
+                                        <div class="stat-title dark:text-black">{{ $client->categorie->value }}</div>
+                                        <div class="stat-value text-[#ab0800] text-xl">{{ $client->prenom }} {{ $client->nom }}</div>
+                                    </div>
+
+                                    {{-- Montant des locations --}}
                                     <div class="border-[#ab0800] stat">
                                         <div class="stat-title dark:text-black">{{ __('creation_modification_comptes.LabelMotantDesLocations') }}</div>
                                         <div class="stat-value text-[#ab0800] text-xl justify-self-end">{{ $client->montant_des_locations }} CHF</div>
                                     </div>
+
                                 @endif
+
                             @endif
 
                             {{-- S'il s'agit d'un administrateur on s'assure qu'il accede a ses fonctionalites --}}
+                            {{-- Condition Blade : S'il s'agit d'un administrateur --}}
                             @if (Auth::user()->categorie->value == 'Administrateur')
+
+                                {{-- On affiche les cartes de modification et de suppresion des utilisateurs --}}
                                 <div class="stat">
+
                                     <div class="stat-title dark:text-black">{{ $client->categorie->value }}</div>
                                     <div class="stat-value text-[#ab0800] text-xl">{{ $client->prenom }} {{ $client->nom }}</div>
 
@@ -118,6 +152,7 @@
                 </div>
 
             </x-block-content>
+
         @endif
 
 
@@ -132,12 +167,19 @@
 
                         <div>
                             <h2 class="card-title dark:text-black">{{ __('creation_modification_comptes.LabelInformationPerso') }}</h2>
+                            <x-alert-error :messages="$errors->get('prenom')" class="mt-2" />
+                            <x-alert-success :messages="session('statutInfoPerso')" class="mt-2" />
                         </div>
 
+                        {{-- Condition Blade : S'il s'agit d'un administrateur --}}
                         @if (Auth::user()->categorie->value == 'Administrateur')
 
+                            {{-- Formulaire pour modifier ses informations personnelles --}}
                             <form action="{{ route('CMC.updateInfoPerso') }}" method="POST" class="flex flex-col justify-between gap-4">
+
+                                {{-- TOKEN BLADE --}}
                                 @csrf
+
                                 {{-- Prenom --}}
                                 <div>
                                     <x-input-label for="prenom" :value="__('creation_modification_comptes.LabelPrenom')"/>
@@ -167,6 +209,7 @@
 
                         @else
 
+                            {{-- Affichage des informations personnelles --}}
                             <div class="flex flex-col justify-between gap-4">
                                 <div>
                                     <h3 class="dark:text-black">{{ __('creation_modification_comptes.LabelPrenom') }}</h3>
@@ -188,9 +231,11 @@
 
                     </div>
 
+                    {{-- Bar de séparation --}}
                     <x-divider></x-divider>
 
                     <div class="card-body">
+
                         <div>
                             <h2 class="card-title dark:text-black">{{ __('creation_modification_comptes.LabelMajMdp') }}</h2>
                             <p class="text-red-300 dark:text-red-600">{{ __('creation_modification_comptes.LabelMajMdpDescription') }}</p>
@@ -198,8 +243,10 @@
                             <x-alert-success :messages="session('statut')" class="mt-2" />
                         </div>
 
+                        {{-- Formulaire pour mettre à jour son mot de passe --}}
                         <form method="POST" action="{{ route('CMC.update') }}">
 
+                             {{-- TOKEN BLADE --}}
                             @csrf
 
                             <!-- Mot de passe -->
@@ -235,12 +282,16 @@
     <!-- Modal pour ajouter un compte -->
     <input type="checkbox" id="modalAjouter" class="modal-toggle" />
     <div class="modal">
+
         <div class="modal-box dark:bg-slate-400">
+
             <h2 class="card-title dark:text-black">{{ __('creation_modification_comptes.TitleA') }}</h2>
             <p class="text-red-300 dark:text-red-600">{{ __('creation_modification_comptes.DescriptionA') }}</p>
 
+            {{-- Formulaire pour ajouter un utilisateur --}}
             <form action="{{ route('CMC.addUser') }}" method="POST" class="flex flex-col gap-5 mt-4">
 
+                {{-- TOKEN BLADE --}}
                 @csrf
 
                 <div class="flex flex-row justify-between gap-5">
@@ -278,7 +329,7 @@
                     </div>
                 </div>
 
-                {{-- Choisir la categorie du compte --}}
+                {{-- Choisir la catégorie du compte --}}
                 <div>
                     <x-input-label for="categorie" :value="__('creation_modification_comptes.LabelCategorie')"/>
                     <select id="categorie" name="categorie" class="w-full mt-1 select select-bordered dark:bg-white dark:text-black">
@@ -306,12 +357,16 @@
     <!-- Modal pour modifer un compte -->
     <input type="checkbox" id="modalModifier" class="modal-toggle" />
     <div class="modal">
+
         <div class="modal-box dark:bg-slate-400">
+
             <h2 id="TitleModifier" class="card-title dark:text-black"></h2>
             <p class="text-red-300 dark:text-red-600">{{ __('creation_modification_comptes.DescriptionM') }}</p>
 
+            {{-- Formulaire pour modifier un utilisateur --}}
             <form id="formUpdate" method="POST" class="flex flex-col gap-5 mt-4">
 
+                {{-- TOKEN BLADE --}}
                 @csrf
 
                 <div class="flex flex-row justify-between gap-5">
@@ -375,12 +430,15 @@
 
     {{-- Integration du code JS pour l'utilisation de AJAX via MODAL --}}
     <script type="module">
-        // On attend que la page soit charger
+
+        // On attend que le DOM soit prêt pour le JS
         $(document).ready(function () {
 
             /* Quand on clique sur Modifier */
             $('body').on('click', '#showUserToUpdate', function () {
                 var userURL = $(this).data('url');
+
+                // AJAX par méthode GET par une route LARAVEL
                 $.get(userURL, function (data)
                 {
                     // Ouvrir le modal "DaisyUi"
