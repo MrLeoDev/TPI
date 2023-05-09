@@ -247,11 +247,11 @@
         $(document).ready(function () {
 
             // Au premier chargement de la page
-            $('#client_id').attr('value', $('#client_selected').val());
+            $('[id=client_id]').attr('value', $('#client_selected').val());
 
             // Mettre a jour la valeur de l'input client fantome si gestionnaire
             $('[id=client_selected]').change(function(){
-                $('#client_id').attr('value', $(this).val());
+                $('[id=client_id]').attr('value', $(this).val());
             });
 
             // Mettre à jours le montant de la location
@@ -287,7 +287,7 @@
                 }
 
                 // Appliquer le résultat
-                $('#montant' + key).text(montant + " CHF");
+                $('#montant' + key).text(montant.toFixed(2) + " CHF");
             });
         });
     </script>

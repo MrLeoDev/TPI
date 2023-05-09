@@ -4,15 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Marque;
 use App\Models\Modele;
+use App\Models\Location;
 use App\Models\Vehicule;
 use Illuminate\Http\Request;
-use App\Enum\UserCategorieEnum;
-use App\Enum\VehiculeStatutEnum;
-use App\Enum\VehiculeTransmissionEnum;
 use App\Enum\VehiculeTypeEnum;
-use App\Models\Location;
-use Illuminate\Support\Facades\Auth;
+use App\Enum\UserCategorieEnum;
 use Illuminate\Validation\Rule;
+use App\Enum\VehiculeStatutEnum;
+use Illuminate\Support\Facades\Auth;
+use App\Enum\VehiculeTransmissionEnum;
+use Illuminate\Support\Facades\Storage;
 
 class GdfController extends Controller
 {
@@ -101,6 +102,12 @@ class GdfController extends Controller
 
         // On recupere le nom de l'utilisateur
         $identifiant = $vehicule->id;
+
+        // On supprime l'image lier dans le storage
+        if(Storage::exists('public/' . $vehicule->image))
+        {
+            Storage::delete('public/' . $vehicule->image);
+        }
 
         // On supprime l'utilisateur
         $vehicule->delete();

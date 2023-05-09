@@ -91,6 +91,10 @@ Route::middleware('auth')->group(function () {
         ->middleware('categorie:Gestionnaire,Administrateur')
         ->name('TdB');
 
+    Route::post('/tableau_de_bord/updateStatut', [TdbController::class, 'updateStatut'])
+        ->middleware('categorie:Gestionnaire')
+        ->name('TdB.updateStatut');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

@@ -38,5 +38,9 @@ return [
     # Controller
     'statutAddCar' => 'Le véhicule a bien été ajouté.',
     'statutErreur' => 'Une erreur s\'est produite !',
-    'statutDeleteCar' => 'Le vehicule : :car a été supprimé.'
+    'statutDeleteCar' => 'Le vehicule : :car a été supprimé.',
+
+    ## Sinon
+    'AucunClient' => 'Aucun client n\'a été trouver',
+    'AucunVehicule' => 'Pas de véhicule dans la flotte',
 ];

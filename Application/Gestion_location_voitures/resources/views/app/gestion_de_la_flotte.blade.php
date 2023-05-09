@@ -259,7 +259,11 @@
                                             </div>
                                         @endif
                                     @empty
-                                     <p>Aucun client n'a été trouver</p>
+                                        <div class="max-w-md mx-auto mb-5 bg-white shadow-xl card dark:bg-[#c6c6c6] dark:border-4 dark:border-[#ab0800]">
+                                            <div class="p-4 card-body">
+                                            <h2 class="mx-auto text-center card-title text-[#ab0800] text-3xl smax:text-2xl">{{ __('gestion_de_la_flotte.AucunClient') }}</h2>
+                                            </div>
+                                        </div>
                                     @endforelse
                                 @endif
 
@@ -268,7 +272,11 @@
                         </div>
 
                     @empty
-                        <h1>Pas de véhicule dans la flotte</h1>
+                        <div class="max-w-md mx-auto mb-5 bg-white shadow-xl card dark:bg-[#c6c6c6] dark:border-4 dark:border-[#ab0800]">
+                            <div class="p-4 card-body">
+                            <h2 class="mx-auto text-center card-title text-[#ab0800] text-3xl smax:text-2xl">{{ __('gestion_de_la_flotte.AucunVehicule') }}</h2>
+                            </div>
+                        </div>
                     @endforelse
 
                 </div>

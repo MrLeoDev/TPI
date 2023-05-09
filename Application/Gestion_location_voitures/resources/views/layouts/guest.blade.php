@@ -12,7 +12,7 @@
             <div>
 
                 <a href="{{ route('login') }}">
-                    <x-application-logo class="w-32 h-32 mb-4 text-gray-500 fill-current" />
+                    <x-application-logo class="text-gray-500 fill-current w-52 h-52" />
                 </a>
 
                 <div class="flex w-full">

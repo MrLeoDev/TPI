@@ -10,7 +10,7 @@
                 <!-- Logo -->
                 <div class="flex items-center shrink-0">
                     <a href="{{ route('CMC') }}">
-                        <x-application-logo class="block w-auto text-gray-800 fill-current h-9 dark:text-gray-200" />
+                        <x-application-logo class="block w-auto h-16 text-gray-800 fill-current dark:text-gray-200" />
                     </a>
                 </div>
 
