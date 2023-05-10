@@ -38,12 +38,6 @@
 
         {{-- Mot de passe oublie / Se connecter --}}
         <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="text-sm text-gray-600 underline rounded-md dark:text-black hover:text-gray-900 dark:hover:text-[#ab0800] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('login.MdpOublier') }}
-                </a>
-            @endif
-
             <x-primary-button class="ml-3">
                 {{ __('login.BtnLogin') }}
             </x-primary-button>

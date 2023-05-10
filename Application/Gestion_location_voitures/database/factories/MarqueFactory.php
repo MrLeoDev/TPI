@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class MarqueFactory extends Factory
 {
     /**
-     * Define the model's default state.
+     * Génération d'une marque
      *
      * @return array<string, mixed>
      */

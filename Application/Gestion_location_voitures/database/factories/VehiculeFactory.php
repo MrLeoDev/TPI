@@ -7,7 +7,6 @@ use App\Enum\VehiculeStatutEnum;
 use App\Enum\VehiculeTransmissionEnum;
 use App\Models\Marque;
 use App\Models\Modele;
-use Faker\Provider\Fakecar;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,7 +15,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class VehiculeFactory extends Factory
 {
     /**
-     * Define the model's default state.
+     * Génération d'un véhicule
      *
      * @return array<string, mixed>
      */
