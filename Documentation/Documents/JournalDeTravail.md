@@ -1,6 +1,6 @@
 # Journal de bord : TPI - Gestion de location de voitures
 
-![image journal de bord](Images/Banner_GLV.png)
+![image journal de bord](Images/Banner_TPI.png)
 
 ## S1 : Lundi 01 Mai 2023
 
@@ -193,10 +193,10 @@ La gestion des réservations me fait un peu peur concernant le faite que le gest
 ## S2 : Lundi 08 Mai 2023
 
 ### Etape du projet
-Finir les sections, pofiner le code (Nettoyage et correctement commenter), demarrer la documentation.
+Finir les sections.
 
 ### Objectifs
-Finir les sections, que le code soit propre et que je puisse commencer a toucher la documentation.
+Finir les sections et s'assurer de la résponsivité des pages et de l'accèsibilité.
 
 ### Déroulement de la journée
 >  8h00
@@ -211,9 +211,62 @@ Je met à jour le kanban et le repos aussi.
 >  14h15
 >
 La gestion des réservations (GdR) est presque terminer, je retourne sur la gestion de la flotte (GdF).  
-Car une fois terminer la page GdR, je peut vérifier que le prénom et nom du client s'affiche correctement, les dates de locations et que les statut réagissent correctement. Je dois encore m'amuser avec AJAX et le retour correct des données sur la BDD.
+Car une fois terminer la page GdR, je peux vérifier que le prénom et nom du client s'affiche correctement, les dates de locations et que les statut réagissent correctement. Je dois encore m'amuser avec AJAX et le retour correct des données sur la BDD.
 
 >  18h00
 >
 J'ai enfin terminer les deux pages, qui ont été long et technique mais j'y suis parvenu maintenant j'attaque la dernière page qu'est le tableau de bord.
+### Bilan de la journée
+La journée a été bonne mais encore un fois, il y a certaines choses je penses que j'aurais pu être plus rapide.  
+Sinon je suis content de voir le bout du projet, du côté "Application".
+
+
+## S2 : Mardi 09 Mai 2023
+
+### Etape du projet
+Integrer la modification de date pour la démonstration, finir les tests, finir les fichiers LANG.
+
+### Objectifs
+Mon but est de ne plus toucher à l'application pour me mettre à 100% sur la documentation, les README etc.
+
+### Déroulement de la journée
+>  8h00
+>  
+Je termines encore certaines correction sur le liens des pages entre les réservations, le résultat du rapport et la gestion de la flotte.
+
+>  10h30
+> 
+J'ai des erreurs sur l'integration des données entre la table Location et Véhicule, donc j'essaye de le corriger au plus vite. Mais sinon dans l'ensemble, cela fonctionne ça réagit comme je le souhaite.
+
+>  14h15
+>
+Tout est terminé mais j'ai dû mal à savoir comment je vais intégrer la modification de date,  
+car normalement la réservation se fait au jours même avec une durée donnée par le client.  
+Je ne compte pas passer par les fichiers de configuration car je devrais changer ma manière de récuperation de la date actuelle et je n'arrive pas à faire en sorte que la donnée soit prioritaire avec Carbon.
+
+>  18h00
+>
+J'ai enfin terminé, la manière dont j'allais intégrer, je suis passé par une session du nom "currentDate". Une donnée effectue par une demande Ajax en méthode POST. Je l'ai intégré dans la page Tableau de bord puisque c'est là qu'on peut voir la manière dont on peux modifier les locations. Pas mal de condition ternaire pour choisir la session si elle existe sinon on passe par la fonction "now()" de Carbon pour éviter qu'il n'y ai aucune valeur.  
+
+Grâce à cette réussite, j'ai pu finir mon plus gros test sur le tableau de bord pour s'assurer que la modification de statut du véhicule se fasse après la date de fin et aussi qu'elle ne se fasse pas avant. J'ai pu terminer les fichiers LANG donc la traduction s'effectue correctement sur toutes les pages!
+
+### Bilan de la journée
+Super content d'avoir terminer l'application, je peux enfin me concentrer sur la documentation et aussi soulage qu'une partie de la document est déjà "réaliser" car ayant fait mes tests fonctionnels par PEST passant par Laravel Artisan. J'ai mes petits userstory avec les résultats et un affichage correcte est compréhensible. Donc toutes une section de la document concernant les tests. Demain, je peux me concacrer à la doc serainement.
+
+## S2 : Mercredi 10 Mai 2023
+
+### Etape du projet
+Mettre à jour le repos, le kanban, s'assurer que le journal de bord est bon, commencer la documentation technique.
+### Objectifs
+Avoir fini la section TEST sur la documentation technique et que tout soit en ordre entre Kanban, Repos et fichiers.
+### Déroulement de la journée
+>  8h00
+>  
+Je m'assure que l'application est bon une dernière fois avant de mettre à jour le repos et de commit sur les issues terminées.
+
+>  10h00
+>  
+Je relis mon journal de bord, pour être que je n'ai rien oublié et je me lance sur la documentation Technique.
+
+
 ### Bilan de la journée
