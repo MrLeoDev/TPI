@@ -7,7 +7,7 @@
 
     <body class="font-sans antialiased text-gray-900">
 
-        <div class="flex flex-col gap-5 items-center min-h-screen pt-6 bg-gray-100 sm:justify-center sm:pt-0 dark:bg-[#121212] dark:text-black">
+        <div class="flex flex-col gap-5 items-center min-h-screen pt-6 bg-gray-100 sm:justify-center sm:pt-0 dark:bg-[#363A43] dark:text-black">
 
             <div>
 
