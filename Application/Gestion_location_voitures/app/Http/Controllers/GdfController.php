@@ -133,7 +133,7 @@ class GdfController extends Controller
         $vehiculeLouer->save();
 
         // On recupere apres le rafraichissement de la page
-        session()->flash('statutCar', 'Statut mis a jour!');
+        session()->flash('statutCar', trans('gestion_de_la_flotte.statutUpdate'));
 
         // On retourne la promesse
         return response()->json(['success' => 'Statut mis a jour!']);

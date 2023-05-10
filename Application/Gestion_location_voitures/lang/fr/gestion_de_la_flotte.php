@@ -39,8 +39,9 @@ return [
     'statutAddCar' => 'Le véhicule a bien été ajouté.',
     'statutErreur' => 'Une erreur s\'est produite !',
     'statutDeleteCar' => 'Le vehicule : :car a été supprimé.',
+    'statutUpdate' => 'Statut mis a jour!',
 
     ## Sinon
-    'AucunClient' => 'Aucun client n\'a été trouver',
+    'AucunClient' => 'Aucun client n\'a été trouvé',
     'AucunVehicule' => 'Pas de véhicule dans la flotte',
 ];

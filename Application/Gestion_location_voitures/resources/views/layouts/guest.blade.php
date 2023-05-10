@@ -7,7 +7,7 @@
 
     <body class="font-sans antialiased text-gray-900">
 
-        <div class="flex flex-col gap-5 items-center min-h-screen pt-6 bg-gray-100 sm:justify-center sm:pt-0 dark:bg-[#292424] dark:text-black">
+        <div class="flex flex-col gap-5 items-center min-h-screen pt-6 bg-gray-100 sm:justify-center sm:pt-0 dark:bg-[#121212] dark:text-black">
 
             <div>
 
@@ -21,7 +21,7 @@
 
             </div>
 
-            <div class="w-full bg-white dark:bg-[#c6c6c6] sm:max-w-md sm:rounded-lg">
+            <div class="w-full bg-white dark:bg-[#c6c6c6] sm:max-w-md sm:rounded-lg border-4 border-[#ab0800]">
                 <div class="w-full px-6 py-4 overflow-hidden shadow-md dark:glass sm:rounded-lg">
                     {{ $slot }}
                 </div>

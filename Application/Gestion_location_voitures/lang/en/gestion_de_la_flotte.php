@@ -38,5 +38,10 @@ return [
     # Controller
     'statutAddCar' => 'The vehicle has been added.',
     'statutErreur' => 'An error has occurred !',
-    'statutDeleteCar' => 'The vehicle : :car has been deleted.'
+    'statutDeleteCar' => 'The vehicle : :car has been deleted.',
+    'statutUpdate' => 'Updated status!',
+
+    ## Sinon
+    'AucunClient' => 'No customers were found',
+    'AucunVehicule' => 'No vehicle in the fleet',
 ];

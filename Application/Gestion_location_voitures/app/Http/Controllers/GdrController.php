@@ -140,6 +140,6 @@ class GdrController extends Controller
         $vehiculeLouer->save();
         $client->save();
 
-        return back()->with('statutLocation', 'Reservation reussit!');
+        return back()->with('statutLocation', trans('gestion_des_reservation.bookCar'));
     }
 }

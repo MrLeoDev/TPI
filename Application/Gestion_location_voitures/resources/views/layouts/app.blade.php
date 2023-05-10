@@ -7,7 +7,7 @@
 
     <body class="font-sans antialiased">
 
-        <div class="min-h-screen bg-gray-100 dark:bg-[#292424]">
+        <div class="min-h-screen bg-gray-100 dark:bg-[#121212]">
 
             @include('layouts.navigation')
 

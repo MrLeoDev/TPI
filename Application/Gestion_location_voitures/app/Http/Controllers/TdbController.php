@@ -25,7 +25,15 @@ class TdbController extends Controller
         $nbVoituresFlotte = Vehicule::count();
         $nbVoituresLoues = Vehicule::where('statut', VehiculeStatutEnum::LOUER)->count();
 
-        $rapport = (($nbVoituresLoues ?? 0 / $nbVoituresFlotte ?? 1) * 100);
+        // dd($nbVoituresLoues , $nbVoituresFlotte);
+        if ($nbVoituresLoues == 0)
+        {
+            $rapport = 0;
+        }
+        else {
+            $rapport = (($nbVoituresLoues / $nbVoituresFlotte) * 100);
+        }
+
         return view('app.tableau_de_bord')
                 ->with('vehicules', $vehicules ?? null)
                 ->with('locations', $locations ?? null)

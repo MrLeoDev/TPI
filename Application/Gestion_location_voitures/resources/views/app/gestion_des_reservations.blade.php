@@ -1,5 +1,6 @@
 <x-app-layout>
 
+    {{-- Nommer la page dans la tabulation --}}
     <x-slot name="namepage">{{ __('gestion_des_reservations.Title') }}</x-slot>
 
     <div class="flex flex-row gap-5 py-12">
@@ -7,13 +8,15 @@
         {{-- Reste jusqu'à ce que l'espcae manque --}}
         <aside class="sticky top-0 max-w-xs pt-5 mx-auto h-max lgmax:hidden sm:mx-5">
 
+            {{-- Condition Blade : S'il s'agit d'un gestionnaire --}}
             @if (Auth::user()->categorie->value == \App\Enum\UserCategorieEnum::GESTION->value)
 
+                {{-- Selection de client --}}
                 <div class="shadow-xl card w-52 bg-white dark:bg-[#c6c6c6] border-4 border-[#ab0800] mb-3">
 
                     <div class="p-4 card-body">
 
-                        <h2 class="mx-auto card-title text-[#ab0800]">CLIENTS</h2>
+                        <h2 class="mx-auto card-title text-[#ab0800]">{{ __('gestion_des_reservations.TitleClient') }}</h2>
 
                         <div class="flex flex-col gap-3">
 
@@ -34,20 +37,22 @@
 
             @endif
 
+            {{-- FILTRE dans la bar de côte --}}
             <div class="shadow-xl card w-52 bg-white dark:bg-[#c6c6c6] border-4 border-[#ab0800]">
                 <div class="p-4 card-body">
-                    <h2 class="mx-auto card-title text-[#ab0800]">FILTRE</h2>
+                    <h2 class="mx-auto card-title text-[#ab0800]">{{ __('gestion_des_reservations.TitleFiltre') }}</h2>
 
+                    {{-- Formulaire de recherche --}}
                     <form action="{{ route('GdR') }}" method="GET">
 
                         <div class="flex flex-col gap-3">
 
                             {{-- Type du véhicule --}}
                             <div class="w-full">
-                                <x-input-label for="type" :value="__('gestion_de_la_flotte.LabelType')"/>
+                                <x-input-label for="type" :value="__('gestion_des_reservations.LabelSelectType')"/>
                                 <select id="type" name="type" class="w-full mt-1 select select-bordered dark:bg-white dark:text-black">
                                     {{-- <option value="0" selected>Tous</option> --}}
-                                    <option value="0" selected>Tous</option>
+                                    <option value="0" selected>{{ __('gestion_des_reservations.SelectType') }}</option>
                                     @foreach (\App\Enum\VehiculeTypeEnum::cases() as $type)
                                         <option value="{{ $type->value }}" {{ old('type') == $type->value ? 'selected' : '' }}>{{ $type->value }}</option>
                                     @endforeach
@@ -56,9 +61,10 @@
 
                             {{-- Statut du véhicule --}}
                             <div class="w-full">
-                                <x-input-label for="transmission" :value="'Transmission'"/>
+                                <x-input-label for="transmission" :value="__('gestion_des_reservations.LabelSelectTransmission')"/>
                                 <select id="transmission" name="transmission" class="w-full mt-1 select select-bordered dark:bg-white dark:text-black">
-                                    <option value="0">Les deux</option>
+
+                                    <option value="0">{{ __('gestion_des_reservations.SelectTransmission') }}</option>
                                     @foreach (\App\Enum\VehiculeTransmissionEnum::cases() as $transmission)
                                         <option value="{{ $transmission->value }}" {{ old('transmission') == $transmission->value ? 'selected' : '' }}>{{ $transmission->value }}</option>
                                     @endforeach
@@ -70,7 +76,7 @@
 
                         <div class="justify-center mt-3 card-actions">
                             <x-primary-button>
-                                RECHERCHER
+                                {{ __('gestion_des_reservations.BtnRecherche') }}
                             </x-primary-button>
                         </div>
 
@@ -84,7 +90,7 @@
 
             <div class="max-w-md mx-auto mb-5 bg-white shadow-xl card dark:bg-[#c6c6c6] dark:border-4 dark:border-[#ab0800]">
                 <div class="p-4 card-body">
-                    <h2 class="mx-auto text-center card-title text-[#ab0800] text-3xl smax:text-2xl">Véhicules disponibles</h2>
+                    <h2 class="mx-auto text-center card-title text-[#ab0800] text-3xl smax:text-2xl">{{ __('gestion_des_reservations.TitleVehiculeDisponible') }}</h2>
 
                     @if (Auth::user()->categorie->value == \App\Enum\UserCategorieEnum::GESTION->value)
 
@@ -92,7 +98,7 @@
 
                             <div class="p-4 card-body">
 
-                                <h2 class="mx-auto text-[#ab0800] card-title">CLIENTS</h2>
+                                <h2 class="mx-auto text-[#ab0800] card-title">{{ __('gestion_des_reservations.TitleClient') }}</h2>
 
                                 <div class="flex flex-col gap-3">
 
@@ -116,7 +122,7 @@
                     <div class="shadow-xl card bg-white border-4 border-[#ab0800] lg:hidden">
                         <div class="card-body">
 
-                            <h2 class="mx-auto card-title text-[#ab0800]">FILTRE</h2>
+                            <h2 class="mx-auto card-title text-[#ab0800]">{{ __('gestion_des_reservations.TitleFiltre') }}</h2>
 
                             <form action="{{ route('GdR') }}" method="GET">
 
@@ -124,9 +130,9 @@
 
                                     {{-- Type du véhicule --}}
                                     <div class="w-full">
-                                        <x-input-label for="type" :value="__('gestion_de_la_flotte.LabelType')"/>
+                                        <x-input-label for="type" :value="__('gestion_des_reservations.LabelSelectType')"/>
                                         <select id="type" name="type" class="w-full mt-1 select select-bordered dark:bg-white dark:text-black">
-                                            <option value="0" selected>Tous</option>
+                                            <option value="0" selected>{{ __('gestion_des_reservations.SelectType') }}</option>
                                             @foreach (\App\Enum\VehiculeTypeEnum::cases() as $type)
                                                 <option value="{{ $type->value }}" {{ old('type') == $type->value ? 'selected' : '' }}>{{ $type->value }}</option>
                                             @endforeach
@@ -135,9 +141,9 @@
 
                                     {{-- Statut du véhicule --}}
                                     <div class="w-full">
-                                        <x-input-label for="transmission" :value="'Transmission'"/>
+                                        <x-input-label for="transmission" :value="__('gestion_des_reservations.LabelSelectTransmission')"/>
                                         <select id="transmission" name="transmission" class="w-full mt-1 select select-bordered dark:bg-white dark:text-black">
-                                            <option value="0">Les deux</option>
+                                            <option value="0">{{ __('gestion_des_reservations.SelectTransmission') }}</option>
                                             @foreach (\App\Enum\VehiculeTransmissionEnum::cases() as $transmission)
                                                 <option value="{{ $transmission->value }}" {{ old('transmission') == $transmission->value ? 'selected' : '' }}>{{ $transmission->value }}</option>
                                             @endforeach
@@ -149,7 +155,7 @@
 
                                 <div class="justify-center mt-3 card-actions">
                                     <x-primary-button>
-                                        RECHERCHER
+                                        {{ __('gestion_des_reservations.BtnRecherche') }}
                                     </x-primary-button>
                                 </div>
 
@@ -164,7 +170,10 @@
             </div>
 
             <div class="flex flex-row flex-wrap justify-between gap-5 overflow-hidden sm:rounded-lg smax:max-w-xs">
+
+                {{-- Carte de véhicule réservable --}}
                 @forelse ($vehicules as $key => $vehicule)
+
                     <div class="mx-auto shadow-xl smax:max-w-xs card lg:card-side bg-white border-4 border-[#ab0800]">
 
                         <div class="card-body lg:pr-0 lgmax:pb-0">
@@ -180,33 +189,38 @@
                             </div>
                         </div>
 
+                        {{-- Séparateur --}}
                         <div class="before:bg-[#ab0800] after:bg-[#ab0800] divider lg:divider-horizontal mr-1 ml-1"></div>
 
                         <div class="lg:pl-0 lgmax:pt-0 card-body">
 
+                            {{-- Formulaire de la réservation --}}
                             <form id="formReservation" action="{{ route('GdR.bookCar') }}" method="POST" class="flex flex-col justify-between h-full lgmax:gap-2">
+
+                                {{-- TOKEN BLADE --}}
                                 @csrf
+
                                 {{-- Durée de la location --}}
                                 <div>
-                                    <h2 class="mx-auto text-lg text-center">Durée de la location</h2>
+                                    <h2 class="mx-auto text-lg text-center">{{ __('gestion_des_reservations.DureeLocation') }}</h2>
                                     <div class="flex flex-row justify-center gap-3">
                                         <x-text-input id="DureeLocation" name="duree_location"
                                                         type="number" min="1" class="block w-20"
                                                         value="0"
                                                         data-key="{{ $key + 1 }}" data-tarifj="{{ $vehicule->tarif_journalier }}" required />
-                                        <label for="DureeLocation" class="my-auto">Jours</label>
+                                        <label for="DureeLocation" class="my-auto">{{ __('gestion_des_reservations.Jours') }}</label>
                                     </div>
                                 </div>
 
                                 {{-- Montant de la location --}}
                                 <div>
-                                    <h2 class="mx-auto text-lg text-center">Montant de la location</h2>
+                                    <h2 class="mx-auto text-lg text-center">{{ __('gestion_des_reservations.MontantLocation') }}</h2>
                                     <h2 id="montant{{ $key + 1 }}" class="mx-auto text-lg text-center">0 CHF</h2>
                                 </div>
 
                                 {{-- Tarif journalière --}}
                                 <div>
-                                    <h2 class="mx-auto text-lg text-center">Tarif journalière</h2>
+                                    <h2 class="mx-auto text-lg text-center">{{ __('gestion_des_reservations.TarifJ') }}</h2>
                                     <h2 id="tarifJ" class="mx-auto text-lg text-center">{{ $vehicule->tarif_journalier }} CHF</h2>
                                 </div>
 
@@ -219,7 +233,7 @@
 
                                 <div class="justify-center card-actions">
                                     <x-primary-button>
-                                        RESERVER
+                                        {{ __('gestion_des_reservations.BtnReserver') }}
                                     </x-primary-button>
                                 </div>
 
@@ -227,12 +241,14 @@
 
 
                         </div>
+
                     </div>
+
                 @empty
                     {{-- Aucun vehicule disponible --}}
                     <div class="max-w-md mx-auto mb-5 bg-white shadow-xl card dark:bg-[#c6c6c6] dark:border-4 dark:border-[#ab0800]">
                         <div class="p-4 card-body">
-                            <h2 class="mx-auto text-center card-title text-[#ab0800] text-3xl smax:text-2xl">Il n'y a plus de vehicule disponible!</h2>
+                            <h2 class="mx-auto text-center card-title text-[#ab0800] text-3xl smax:text-2xl">{{ __('gestion_des_reservations.AucunVehicule') }}</h2>
                         </div>
                     </div>
                 @endforelse

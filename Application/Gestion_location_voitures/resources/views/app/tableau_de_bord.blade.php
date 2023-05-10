@@ -1,30 +1,42 @@
 <x-app-layout>
 
+    {{-- Nommer la page dans la tabulation --}}
     <x-slot name="namepage">{{ __('tableau_de_bord.Title') }}</x-slot>
 
     <div class="flex flex-col gap-5 py-12">
 
-        {{-- Gestion des vehicules louer --}}
+        {{-- Gestion des vehicules loués --}}
         <x-block-content>
 
+            {{-- Gestion de la date actuelle (Démonstration) --}}
             <div class="max-w-md mx-auto mb-5 bg-white shadow-xl card dark:bg-[#c6c6c6] dark:border-4 dark:border-[#ab0800]">
                 <div class="p-4 card-body">
-                    <h2 class="mx-auto text-center card-title text-[#ab0800] text-3xl smax:text-2xl">Vue d'ensemble</h2>
+                    <h2 class="mx-auto text-center card-title text-[#ab0800] text-3xl smax:text-2xl">{{ __('tableau_de_bord.TitleVE') }}</h2>
                     <x-text-input id="currentDate" name="currentDate" type="date" class="block w-full mt-1" value="{{ date('Y-m-d', strtotime((session('currentDate') ?? now()))) }}" />
-                    <h2 class="mx-auto text-center card-title text-[#ab0800] text-3xl smax:text-2xl">Date actuelle : {{ date('d/m/y', strtotime((session('currentDate') ?? now()))) }}</h2>
+                    <h2 class="mx-auto text-center card-title text-[#ab0800] text-3xl smax:text-2xl">{{ __('tableau_de_bord.TitleDate') }} {{ date('d/m/y', strtotime((session('currentDate') ?? now()))) }}</h2>
                 </div>
             </div>
 
+            {{-- Gestion des alertes --}}
             <x-alert-error :messages="session('statutErreur')" class="my-2" />
             <x-alert-success :messages="session('statutCar')" class="my-2" />
 
             <div class="overflow-hidden sm:rounded-lg">
+
                 <div class="flex flex-row flex-wrap justify-between gap-5">
+
+                    {{-- Condition Blade : On boucles les véhicules --}}
                     @forelse ($vehicules as $vehicule)
+
+                        {{-- Condition Blade : On boucles les locations --}}
                         @forelse ($locations as $location)
+
+                            {{-- Condition Blade : Si la location correspond au véhicule de la boucle --}}
                             @if ($location->vehicule_id == $vehicule->id)
+
                                 <div class="bg-white border-4 border-[#ab0800] shadow-xl card w-96 mx-auto dark:text-black {{ (session('currentDate') ?? now()) > $location->date_fin ? 'dark:bg-red-300 dark:bg-gradient-to-t' : 'dark:bg-[#c6c6c6]' }}">
 
+                                    {{-- Image du véhicule --}}
                                     <figure class="flex flex-col px-10 pt-10">
                                         <img src="{{ asset($vehicule->image) }}" alt="{{ $vehicule->id }}" class="w-full mx-auto sm:max-w-xs rounded-xl" />
                                         <h2 class="text-xl text-[#ab0800] font-bold">{{ $vehicule->id }}</h2>
@@ -32,6 +44,7 @@
 
                                     <div class="items-center pt-0 text-center card-body">
 
+                                        {{-- Information du véhicule --}}
                                         <div class="flex flex-col flex-wrap justify-between w-full">
                                             <div class="flex flex-row flex-wrap">
                                                 <p class="text-start text-lg text-[#ab0800]">{{ $vehicule->marque->libelle }}</p>
@@ -39,6 +52,7 @@
                                             </div>
                                         </div>
 
+                                        {{-- Séparateur --}}
                                         <div class="before:bg-[#ab0800] after:bg-[#ab0800] divider my-0"></div>
 
 
@@ -46,7 +60,7 @@
 
                                             {{-- Statut du vehicule --}}
                                             <div>
-                                                <x-input-label for="statutVE" :value="__('gestion_de_la_flotte.LabelStatut')"/>
+                                                <x-input-label for="statutVE" :value="__('tableau_de_bord.LabelStatut')"/>
                                                 <select id="statutVE"
                                                         name="statutVE"
                                                         class="w-full mt-1 select select-bordered dark:disabled:bg-slate-400 dark:bg-white"
@@ -58,12 +72,13 @@
                                                 </select>
                                             </div>
 
+                                            {{-- Séparateur --}}
                                             <div class="before:bg-[#ab0800] after:bg-[#ab0800] divider divider-horizontal my-0"></div>
 
-
+                                            {{-- Date de fin de location --}}
                                             <div class="flex flex-row my-auto">
                                                 <div class="my-auto">
-                                                    <h2 class="text-lg text-[#ab0800]">{{ __('gestion_de_la_flotte.FinL') }}</h2>
+                                                    <h2 class="text-lg text-[#ab0800]">{{ __('tableau_de_bord.FinL') }}</h2>
                                                     <p>{{ date('d/m/y', strtotime($location->date_fin)) }}</p>
                                                 </div>
                                             </div>
@@ -77,14 +92,14 @@
                         @empty
                             <div class="max-w-md mx-auto mb-5 bg-white shadow-xl card dark:bg-[#c6c6c6] dark:border-4 dark:border-[#ab0800]">
                                 <div class="p-4 card-body">
-                                    <h2 class="mx-auto text-center card-title text-[#ab0800] text-3xl smax:text-2xl">Aucun client n'a été trouver</h2>
+                                    <h2 class="mx-auto text-center card-title text-[#ab0800] text-3xl smax:text-2xl">{{ __('tableau_de_bord.AucunClient') }}</h2>
                                 </div>
                             </div>
                         @endforelse
                     @empty
                         <div class="max-w-md mx-auto mb-5 bg-white shadow-xl card dark:bg-[#c6c6c6] dark:border-4 dark:border-[#ab0800]">
                             <div class="p-4 card-body">
-                                <h2 class="mx-auto text-center card-title text-[#ab0800] text-3xl smax:text-2xl">Pas de véhicule loué</h2>
+                                <h2 class="mx-auto text-center card-title text-[#ab0800] text-3xl smax:text-2xl">{{ __('tableau_de_bord.AucunVehicule') }}</h2>
                             </div>
                         </div>
                     @endforelse
@@ -98,7 +113,7 @@
 
             <div class="max-w-md mx-auto mb-5 bg-white shadow-xl card dark:bg-[#c6c6c6] dark:border-4 dark:border-[#ab0800]">
                 <div class="p-4 card-body">
-                <h2 class="mx-auto text-center card-title text-[#ab0800] text-3xl smax:text-2xl">Résumer</h2>
+                <h2 class="mx-auto text-center card-title text-[#ab0800] text-3xl smax:text-2xl">{{ __('tableau_de_bord.Resumer') }}</h2>
                 </div>
             </div>
 
@@ -106,19 +121,19 @@
 
                 {{-- Nb de vehicules dans la flotte --}}
                 <div class="stat">
-                    <div class="stat-title lgmax:text-sm dark:text-black">Nombre de vehicules dans la flotte</div>
+                    <div class="stat-title lgmax:text-sm dark:text-black">{{ __('tableau_de_bord.nbFlotte') }}</div>
                     <div class="stat-value text-[#ab0800] justify-self-center lgmax:text-2xl">{{ $nbVoituresFlotte }}</div>
                 </div>
 
                 {{-- Nb de vehicules loues --}}
                 <div class="border-[#ab0800] stat">
-                    <div class="stat-title lgmax:text-sm dark:text-black">Nombre de vehicules loues</div>
+                    <div class="stat-title lgmax:text-sm dark:text-black">{{ __('tableau_de_bord.nbLouer') }}</div>
                     <div class="stat-value text-[#ab0800] justify-self-center lgmax:text-2xl">{{ $nbVoituresLoues }}</div>
                 </div>
 
                 {{-- Pourcentage du nombre de vehicule pour de vehicule dans la flotte --}}
                 <div class="border-[#ab0800] stat">
-                    <div class="stat-title lgmax:text-sm dark:text-black">Rapport de vehicules loues %</div>
+                    <div class="stat-title lgmax:text-sm dark:text-black">{{ __('tableau_de_bord.Rapport') }}</div>
                     <div class="stat-value text-[#ab0800] justify-self-center lgmax:text-2xl">{{ $rapport }} %</div>
                 </div>
 
