@@ -224,7 +224,7 @@ Sinon je suis content de voir le bout du projet, du côté "Application".
 ## S2 : Mardi 09 Mai 2023
 
 ### Etape du projet
-Integrer la modification de date pour la démonstration, finir les tests, finir les fichiers LANG.
+Finir la page Tableau de bord, integrer la modification de date pour la démonstration, finir les tests, finir les fichiers LANG.
 
 ### Objectifs
 Mon but est de ne plus toucher à l'application pour me mettre à 100% sur la documentation, les README etc.
@@ -232,7 +232,7 @@ Mon but est de ne plus toucher à l'application pour me mettre à 100% sur la do
 ### Déroulement de la journée
 >  8h00
 >  
-Je termines encore certaines correction sur le liens des pages entre les réservations, le résultat du rapport et la gestion de la flotte.
+Je termines la page du tableau de bord et encore certaines correction sur le liens des pages entre les réservations, le résultat du rapport et la gestion de la flotte.
 
 >  10h30
 > 
@@ -266,7 +266,43 @@ Je m'assure que l'application est bon une dernière fois avant de mettre à jour
 
 >  10h00
 >  
+J'ai ajouter au dernier momement la fonction "Update Info personnel" pour l'administrateur car je n'avais pas comrpis qu'il pouvait le faire.
 Je relis mon journal de bord, pour être que je n'ai rien oublié et je me lance sur la documentation Technique.
 
+>  15h30
+>  
+J'ai pu discuter avec Kappel pour la réalisation de la section Test de la documentation et je suis en cours d'écriture.
+
+>  18h30
+>  
+J'utilise une extension de vscode pour réaliser des "screens" de mon code, pour les intégrer à ma documentation, J'ai terminé dans la section Test : Couverture, Cadre, Infrastructure et pratiquement les tests fonctionnels. J'ai fractionné pas mal de code car beaucoup trop gros pour rentrer dans la doc.
 
 ### Bilan de la journée
+La documentation n'est forcement marrante à faire mais j'avance bien.  
+Evidemment, je souhaitais terminer la section de test mais il y avait pas mal de chose à dire.
+
+## S2 : Jeudi 11 Mai 2023
+
+### Etape du projet
+Faire la documentation
+### Objectifs
+Finir la section Test, et commencer la section Gestion de projet.
+### Déroulement de la journée
+>  9h00
+>  
+Je finalise la section test concernant les tests fonctionnels, le rapport de tests puis le constats
+
+>  10h30
+>  
+Toujours en cours de réalisation de la section Test.
+
+>  15h30
+>  
+J'ai terminer la section "Tests", je réalise la section "Gestion de projet" et la section "Planification"
+
+>  18h30
+>  
+J'ai terminé les deux sections, maintenant je réalise la section "Analyse fontionnelle" mais avant j'effectue le Sitemap pour la structure de l'application.
+
+### Bilan de la journée
+J'ai super bien avancé le manuel technique pour le coups je suis heureux.

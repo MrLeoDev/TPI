@@ -1,0 +1,9 @@
+Fonts used in this design:
+
+Font: Titillium Web
+Author: Multiple Designers
+Url: https://fonts.google.com/specimen/Titillium+Web
+
+Font: Rammetto One
+Author: Vernon Adams
+Url: https://fonts.google.com/specimen/Rammetto+One

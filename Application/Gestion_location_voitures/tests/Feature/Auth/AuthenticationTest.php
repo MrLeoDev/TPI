@@ -3,6 +3,10 @@
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 
+/**
+ * Test sur les connexions dans la page "LOGIN"
+ */
+
 test('[LOGIN] : Les utilisateurs peuvent se connecter à l\'application', function () {
     $user = User::factory()->create();
 
