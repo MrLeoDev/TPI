@@ -10,16 +10,15 @@ use Illuminate\Support\Facades\App;
 class LanguageManager
 {
     /**
-     * Handle an incoming request.
+     * On s'assure que l'application applique la langue
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (session()->has('locale')) {
-
+        if (session()->has('locale'))
+        {
             App::setLocale(session()->get('locale'));
-
         }
 
         return $next($request);

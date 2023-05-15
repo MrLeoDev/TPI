@@ -27,6 +27,11 @@
                 </div>
             </div>
 
+            {{-- Accès manuel utilisateur --}}
+            <div class="absolute bottom-0 right-0 m-5 rounded-lg smax:rounded-full bg-info dark:bg-sky-600">
+                <a href="{{ asset('pdf/Manuel_utilisateur.pdf') }}" class="text-black btn smax:hidden glass dark:text-white">{{ __('manuelUtilisateur.LabelMU') }}</a>
+                <a href="{{ asset('pdf/Manuel_utilisateur.pdf') }}" class="w-16 h-16 text-black btn btn-circle glass sm:hidden"><img src="{{ asset('img/icons/manual-icon.svg') }}" alt="Icon ManuelUtilisateur" class="m-auto w-9"></a>
+            </div>
 
         </div>
 

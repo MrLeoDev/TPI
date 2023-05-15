@@ -5,7 +5,7 @@
     <x-slot name="namepage">{{ __('creation_modification_comptes.Title') }}</x-slot>
 
     {{-- S'assurer de la structure de la page --}}
-    <div class="flex flex-col gap-5 py-12">
+    <div class="flex flex-col gap-5 pt-12 lg:py-12">
 
         {{-- On retrouve la catégorie des utilisateurs --}}
         {{-- S'il s'agit d'un client, la valeur du montant des locations également --}}
@@ -182,20 +182,23 @@
 
                                 {{-- Prenom --}}
                                 <div>
-                                    <x-input-label for="prenom" :value="__('creation_modification_comptes.LabelPrenom')"/>
+                                    <x-input-label for="prenom" :value="__('creation_modification_comptes.LabelPrenom')" :obligatoire=true />
                                     <x-text-input id="prenom" name="prenom" type="text" class="block w-full mt-1" value="{{ Auth::user()->prenom }}" />
+                                    <x-input-error :messages="$errors->get('prenom')" class="mt-2" />
                                 </div>
 
                                 {{-- Nom --}}
                                 <div>
-                                    <x-input-label for="nom" :value="__('creation_modification_comptes.LabelNom')"/>
+                                    <x-input-label for="nom" :value="__('creation_modification_comptes.LabelNom')" :obligatoire=true />
                                     <x-text-input id="nom" name="nom" type="text" class="block w-full mt-1" value="{{ Auth::user()->nom }}" />
+                                    <x-input-error :messages="$errors->get('nom')" class="mt-2" />
                                 </div>
 
                                 {{-- Email --}}
                                 <div>
-                                    <x-input-label for="email" :value="__('creation_modification_comptes.LabelEmail')"/>
+                                    <x-input-label for="email" :value="__('creation_modification_comptes.LabelEmail')" :obligatoire=true />
                                     <x-text-input id="email" name="email" type="email" class="block w-full mt-1" value="{{ Auth::user()->email }}" />
+                                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                 </div>
 
                                 {{-- Boutton : Mettre à jour --}}
@@ -251,14 +254,16 @@
 
                             <!-- Mot de passe -->
                             <div class="">
-                                <x-input-label for="password" :value="__('creation_modification_comptes.LabelNewMdp')" />
+                                <x-input-label for="password" :value="__('creation_modification_comptes.LabelNewMdp')" :obligatoire=true />
                                 <x-text-input id="password" name="password" type="password" class="block w-full mt-1" autocomplete="new-password" />
+                                <x-input-error :messages="$errors->get('password')" class="mt-2" />
                             </div>
 
                             <!-- Confirmation du mot de passe -->
                             <div class="mt-4">
-                                <x-input-label for="password_confirmation" :value="__('creation_modification_comptes.LabelConfirmMdp')" />
+                                <x-input-label for="password_confirmation" :value="__('creation_modification_comptes.LabelConfirmMdp')" :obligatoire=true />
                                 <x-text-input id="password_confirmation" name="password_confirmation" type="password" class="block w-full mt-1" autocomplete="new-password" />
+                                <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                             </div>
 
                             {{-- Boutton : Mettre à jour --}}
@@ -297,47 +302,53 @@
                 <div class="flex flex-row justify-between gap-5">
                     {{-- Prenom --}}
                     <div>
-                        <x-input-label for="prenom" :value="__('creation_modification_comptes.LabelPrenom')"/>
-                        <x-text-input id="prenom" name="prenom" type="text" class="block w-full mt-1" />
+                        <x-input-label for="prenom" :value="__('creation_modification_comptes.LabelPrenom')" :obligatoire=true />
+                        <x-text-input id="prenom" name="prenom" type="text" class="block w-full mt-1" :value="old('prenom')" required autofocus />
+                        <x-input-error :messages="$errors->get('prenom')" class="mt-2" />
                     </div>
 
                     {{-- Nom --}}
                     <div>
-                        <x-input-label for="nom" :value="__('creation_modification_comptes.LabelNom')"/>
-                        <x-text-input id="nom" name="nom" type="text" class="block w-full mt-1" />
+                        <x-input-label for="nom" :value="__('creation_modification_comptes.LabelNom')" :obligatoire=true />
+                        <x-text-input id="nom" name="nom" type="text" class="block w-full mt-1" :value="old('nom')" required />
+                        <x-input-error :messages="$errors->get('nom')" class="mt-2" />
                     </div>
                 </div>
 
                 {{-- Email --}}
                 <div>
-                    <x-input-label for="email" :value="__('creation_modification_comptes.LabelEmail')"/>
-                    <x-text-input id="email" name="email" type="email" class="block w-full mt-1" />
+                    <x-input-label for="email" :value="__('creation_modification_comptes.LabelEmail')" :obligatoire=true />
+                    <x-text-input id="email" name="email" type="email" class="block w-full mt-1" :value="old('email')" required />
+                    <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                 </div>
 
 
                 <div class="flex flex-row justify-between gap-5">
                     <!-- Mot de passe -->
                     <div>
-                        <x-input-label for="password" :value="__('creation_modification_comptes.LabelNewMdp')" />
-                        <x-text-input id="password" name="password" type="password" class="block w-full mt-1" autocomplete="new-password" />
+                        <x-input-label for="password" :value="__('creation_modification_comptes.LabelNewMdp')" :obligatoire=true />
+                        <x-text-input id="password" name="password" type="password" class="block w-full mt-1" autocomplete="new-password" :value="old('password')" required />
+                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
                     </div>
 
                     <!-- Confirmation du mot de passe -->
                     <div>
-                        <x-input-label for="password_confirmation" :value="__('creation_modification_comptes.LabelConfirmMdp')" />
-                        <x-text-input id="password_confirmation" name="password_confirmation" type="password" class="block w-full mt-1" autocomplete="new-password" />
+                        <x-input-label for="password_confirmation" :value="__('creation_modification_comptes.LabelConfirmMdp')" :obligatoire=true />
+                        <x-text-input id="password_confirmation" name="password_confirmation" type="password" class="block w-full mt-1" autocomplete="new-password" required />
+                        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                     </div>
                 </div>
 
                 {{-- Choisir la catégorie du compte --}}
                 <div>
-                    <x-input-label for="categorie" :value="__('creation_modification_comptes.LabelCategorie')"/>
+                    <x-input-label for="categorie" :value="__('creation_modification_comptes.LabelCategorie')" :obligatoire=true />
                     <select id="categorie" name="categorie" class="w-full mt-1 select select-bordered dark:bg-white dark:text-black">
                         <option id="ChooseDisabled" disabled selected>{{ __('creation_modification_comptes.SelectDisabled') }}</option>
                         @foreach (\App\Enum\UserCategorieEnum::cases() as $categorie)
                             <option value="{{ $categorie->value }}">{{ $categorie->value }}</option>
                         @endforeach
                     </select>
+                    <x-input-error :messages="$errors->get('categorie')" class="mt-2" />
                 </div>
 
                 {{-- Bouton pour revenir ou ajouter un utilisateur --}}
@@ -373,20 +384,23 @@
                     {{-- Prenom --}}
                     <div>
                         <x-input-label for="Uprenom" :value="__('creation_modification_comptes.LabelPrenom')"/>
-                        <x-text-input id="Uprenom" name="prenom" type="text" class="block w-full mt-1" />
+                        <x-text-input id="Uprenom" name="prenom" type="text" class="block w-full mt-1" required autofocus />
+                        <x-input-error :messages="$errors->get('prenom')" class="mt-2" />
                     </div>
 
                     {{-- Nom --}}
                     <div>
                         <x-input-label for="Unom" :value="__('creation_modification_comptes.LabelNom')"/>
                         <x-text-input id="Unom" name="nom" type="text" class="block w-full mt-1" />
+                        <x-input-error :messages="$errors->get('nom')" class="mt-2" />
                     </div>
                 </div>
 
                 {{-- Email --}}
                 <div>
                     <x-input-label for="Uemail" :value="__('creation_modification_comptes.LabelEmail')"/>
-                    <x-text-input id="Uemail" name="email" type="email" class="block w-full mt-1" />
+                    <x-text-input id="Uemail" name="email" type="email" class="block w-full mt-1" required />
+                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
                 </div>
 
 
@@ -412,6 +426,7 @@
                             <option value="{{ $categorie->value }}">{{ $categorie->value }}</option>
                         @endforeach
                     </select>
+                    <x-input-error :messages="$errors->get('categorie')" class="mt-2"  />
                 </div>
 
                 {{-- Bouton pour revenir ou modifier le compte --}}

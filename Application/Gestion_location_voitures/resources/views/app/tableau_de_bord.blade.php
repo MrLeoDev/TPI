@@ -3,7 +3,7 @@
     {{-- Nommer la page dans la tabulation --}}
     <x-slot name="namepage">{{ __('tableau_de_bord.Title') }}</x-slot>
 
-    <div class="flex flex-col gap-5 py-12">
+    <div class="flex flex-col gap-5 pt-12 lg:py-12">
 
         {{-- Gestion des vehicules loués --}}
         <x-block-content>
@@ -34,7 +34,7 @@
                             {{-- Condition Blade : Si la location correspond au véhicule de la boucle --}}
                             @if ($location->vehicule_id == $vehicule->id)
 
-                                <div class="bg-white border-4 border-[#ab0800] shadow-xl card w-96 mx-auto dark:text-black {{ (session('currentDate') ?? now()) > $location->date_fin ? 'dark:bg-red-300 dark:bg-gradient-to-t' : 'dark:bg-[#c6c6c6]' }}">
+                                <div class="border-4 border-[#ab0800] shadow-xl card w-96 mx-auto dark:text-black {{ (session('currentDate') ?? now()) > $location->date_fin ? 'dark:bg-red-300 dark:bg-gradient-to-t bg-red-300 bg-gradient-to-t' : 'dark:bg-[#c6c6c6] bg-white' }}">
 
                                     {{-- Image du véhicule --}}
                                     <figure class="flex flex-col px-10 pt-10">
@@ -60,7 +60,7 @@
 
                                             {{-- Statut du vehicule --}}
                                             <div>
-                                                <x-input-label for="statutVE" :value="__('tableau_de_bord.LabelStatut')"/>
+                                                <x-input-label for="statutVE" :value="__('tableau_de_bord.LabelSelect')" :obligatoire=true />
                                                 <select id="statutVE"
                                                         name="statutVE"
                                                         class="w-full mt-1 select select-bordered dark:disabled:bg-slate-400 dark:bg-white"
@@ -70,6 +70,7 @@
                                                             <option data-currentdate="{{ (session('currentDate') ?? now()) }}" data-idvehicule="{{ $vehicule->id }}" value="{{ $statut->value }}" {{ $vehicule->statut == $statut->value ? 'selected' : '' }}>{{ $statut->value }}</option>
                                                     @endforeach
                                                 </select>
+                                                <x-input-error :messages="$errors->get('statutVE')" class="mt-2" />
                                             </div>
 
                                             {{-- Séparateur --}}

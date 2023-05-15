@@ -32,10 +32,10 @@ class CmcController extends Controller
     }
 
     /**
-     * Undocumented function
+     * Ajouter un utilisateur
      *
      * @param Request $request
-     * @return void
+     * @return \Illuminate\Http\RedirectResponse returned
      */
     public function addUser(Request $request)
     {
@@ -58,6 +58,13 @@ class CmcController extends Controller
         return back()->with('statutAddUser', trans('creation_modification_comptes.StatutaddUser'));
     }
 
+    /**
+     * Mise à jour des informations d'un utilisateur
+     *
+     * @param Request $request
+     * @param [type] $id
+     * @return \Illuminate\Http\RedirectResponse returned
+     */
     public function updateUser(Request $request, $id)
     {
         // S'assure que la demande est faisable
@@ -91,6 +98,13 @@ class CmcController extends Controller
         return back()->with('statutDeleteUpdate', trans('creation_modification_comptes.StatutupdateUser', ['nom' => $userName]));
     }
 
+    /**
+     * On renvoi les données necessaire pour l'affichage
+     * des informations d'un utilisateur séléctionner
+     *
+     * @param [type] $id
+     * @return \Illuminate\Http\JsonResponse returned
+     */
     public function showUpdateUser($id)
     {
         $data = User::findOrFail($id);
@@ -101,7 +115,7 @@ class CmcController extends Controller
      * Mettre à jour le mot de passe du compte
      *
      * @param Request $request
-     * @return void
+     * @return
      */
     public function update(Request $request)
     {
@@ -122,7 +136,7 @@ class CmcController extends Controller
      *
      * @category Administrateur
      * @param [type] $id
-     * @return void
+     * @return \Illuminate\Http\RedirectResponse returned
      */
     public function delete($id)
     {
@@ -143,6 +157,12 @@ class CmcController extends Controller
         return back()->with('statutDeleteUpdate', trans('creation_modification_comptes.StatutdeleteUser', ['nom' => $userName]));
     }
 
+    /**
+     * Mettre à jour les informations personnelles de l'administrateur
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse returned
+     */
     public function updateInfoPerso(Request $request)
     {
         $request->validate([

@@ -20,7 +20,7 @@ class GdfController extends Controller
     /**
      * On retourne la page Gestion de la flotte
      *
-     * @return \Illuminate\Contracts\View\View returned
+     * @return \Illuminate\Contracts\View\View
      */
     public function index()
     {
@@ -115,6 +115,12 @@ class GdfController extends Controller
         return back()->with('statutDeleteCar', trans('gestion_de_la_flotte.statutDeleteCar', ['car' => $identifiant]));
     }
 
+    /**
+     * Mettre à jour le statut d'un véhicule
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function updateStatut(Request $request)
     {
         // On verifie la requete

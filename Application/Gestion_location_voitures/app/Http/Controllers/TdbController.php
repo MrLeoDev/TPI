@@ -25,7 +25,6 @@ class TdbController extends Controller
         $nbVoituresFlotte = Vehicule::count();
         $nbVoituresLoues = Vehicule::where('statut', VehiculeStatutEnum::LOUER)->count();
 
-        // dd($nbVoituresLoues , $nbVoituresFlotte);
         if ($nbVoituresLoues == 0)
         {
             $rapport = 0;
@@ -42,6 +41,13 @@ class TdbController extends Controller
                 ->with('rapport', round($rapport,0) ?? null);
     }
 
+    /**
+     * Mettre à jour le statut d'un véhicule qui a terminé la date de location
+     *
+     * @category Gestionnaire
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function updateStatut(Request $request)
     {
         // On verifie la requete
@@ -79,7 +85,7 @@ class TdbController extends Controller
      * Uniquement pour tester la fonctionnalite de la location
      *
      * @param Request $request
-     * @return void
+     * @return \Illuminate\Http\JsonResponse
      */
     public function changeCurrentDate(Request $request)
     {

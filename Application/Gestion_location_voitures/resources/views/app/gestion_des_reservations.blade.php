@@ -3,7 +3,7 @@
     {{-- Nommer la page dans la tabulation --}}
     <x-slot name="namepage">{{ __('gestion_des_reservations.Title') }}</x-slot>
 
-    <div class="flex flex-row gap-5 py-12">
+    <div class="flex flex-row gap-5 pt-12 lg:py-12">
 
         {{-- Reste jusqu'à ce que l'espcae manque --}}
         <aside class="sticky top-0 max-w-xs pt-5 mx-auto h-max lgmax:hidden sm:mx-5">
@@ -50,19 +50,20 @@
                             {{-- Type du véhicule --}}
                             <div class="w-full">
                                 <x-input-label for="type" :value="__('gestion_des_reservations.LabelSelectType')"/>
-                                <select id="type" name="type" class="w-full mt-1 select select-bordered dark:bg-white dark:text-black">
+                                <select id="type" name="type" class="w-full mt-1 select select-bordered dark:bg-white dark:text-black" required>
                                     {{-- <option value="0" selected>Tous</option> --}}
                                     <option value="0" selected>{{ __('gestion_des_reservations.SelectType') }}</option>
                                     @foreach (\App\Enum\VehiculeTypeEnum::cases() as $type)
                                         <option value="{{ $type->value }}" {{ old('type') == $type->value ? 'selected' : '' }}>{{ $type->value }}</option>
                                     @endforeach
                                 </select>
+                                <x-input-error :messages="$errors->get('type')" class="mt-2" />
                             </div>
 
                             {{-- Statut du véhicule --}}
                             <div class="w-full">
                                 <x-input-label for="transmission" :value="__('gestion_des_reservations.LabelSelectTransmission')"/>
-                                <select id="transmission" name="transmission" class="w-full mt-1 select select-bordered dark:bg-white dark:text-black">
+                                <select id="transmission" name="transmission" class="w-full mt-1 select select-bordered dark:bg-white dark:text-black" required>
 
                                     <option value="0">{{ __('gestion_des_reservations.SelectTransmission') }}</option>
                                     @foreach (\App\Enum\VehiculeTransmissionEnum::cases() as $transmission)
@@ -70,6 +71,7 @@
                                     @endforeach
 
                                 </select>
+                                <x-input-error :messages="$errors->get('transmission')" class="mt-2" />
                             </div>
 
                         </div>
@@ -131,24 +133,26 @@
                                     {{-- Type du véhicule --}}
                                     <div class="w-full">
                                         <x-input-label for="type" :value="__('gestion_des_reservations.LabelSelectType')"/>
-                                        <select id="type" name="type" class="w-full mt-1 select select-bordered dark:bg-white dark:text-black">
+                                        <select id="type" name="type" class="w-full mt-1 select select-bordered dark:bg-white dark:text-black" required>
                                             <option value="0" selected>{{ __('gestion_des_reservations.SelectType') }}</option>
                                             @foreach (\App\Enum\VehiculeTypeEnum::cases() as $type)
                                                 <option value="{{ $type->value }}" {{ old('type') == $type->value ? 'selected' : '' }}>{{ $type->value }}</option>
                                             @endforeach
                                         </select>
+                                        <x-input-error :messages="$errors->get('type')" class="mt-2" />
                                     </div>
 
                                     {{-- Statut du véhicule --}}
                                     <div class="w-full">
                                         <x-input-label for="transmission" :value="__('gestion_des_reservations.LabelSelectTransmission')"/>
-                                        <select id="transmission" name="transmission" class="w-full mt-1 select select-bordered dark:bg-white dark:text-black">
+                                        <select id="transmission" name="transmission" class="w-full mt-1 select select-bordered dark:bg-white dark:text-black" required>
                                             <option value="0">{{ __('gestion_des_reservations.SelectTransmission') }}</option>
                                             @foreach (\App\Enum\VehiculeTransmissionEnum::cases() as $transmission)
                                                 <option value="{{ $transmission->value }}" {{ old('transmission') == $transmission->value ? 'selected' : '' }}>{{ $transmission->value }}</option>
                                             @endforeach
 
                                         </select>
+                                        <x-input-error :messages="$errors->get('transmission')" class="mt-2" />
                                     </div>
 
                                 </div>
@@ -208,7 +212,8 @@
                                                         type="number" min="1" class="block w-20"
                                                         value="0"
                                                         data-key="{{ $key + 1 }}" data-tarifj="{{ $vehicule->tarif_journalier }}" required />
-                                        <label for="DureeLocation" class="my-auto">{{ __('gestion_des_reservations.Jours') }}</label>
+                                        <label for="DureeLocation" class="my-auto">{{ __('gestion_des_reservations.Jours') }}<span class="text-red-600">*</span></label>
+                                        <x-input-error :messages="$errors->get('duree_location')" class="mt-2" />
                                     </div>
                                 </div>
 
@@ -226,10 +231,10 @@
 
                                 {{-- Uniquement si on est gestionnaire, la valeur se met à jour selon la selction du client --}}
                                 @if (Auth::user()->categorie->value == \App\Enum\UserCategorieEnum::GESTION->value)
-                                    <input id="client_id" type="hidden" name="client_id" value="">
+                                    <input id="client_id" type="hidden" name="client_id" value="" />
                                 @endif
 
-                                <input type="hidden" name="vehicule_id" value="{{ $vehicule->id }}">
+                                <input type="hidden" name="vehicule_id" value="{{ $vehicule->id }}" required />
 
                                 <div class="justify-center card-actions">
                                     <x-primary-button>

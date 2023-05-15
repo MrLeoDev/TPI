@@ -133,7 +133,7 @@ Route::middleware('auth')->group(function () {
     // Accès : Gestionnaire
     # Mise à jour du statut du véhicule
     Route::post('/tableau_de_bord/updateStatut', [TdbController::class, 'updateStatut'])
-        ->middleware('categorie:Gestionnaire')
+        ->middleware('categorie:Gestionnaire,Administrateur')
         ->name('TdB.updateStatut');
 });
 

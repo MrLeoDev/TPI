@@ -3,7 +3,7 @@
     {{-- Nommer la page dans la tabulation --}}
     <x-slot name="namepage">{{ __('gestion_de_la_flotte.Title') }}</x-slot>
 
-    <div class="flex flex-col gap-5 py-12">
+    <div class="flex flex-col gap-5 pt-12 lg:py-12">
 
         {{-- On verifie la categorie du compte pour lui permettre l'acces a l'ajout d'un vehicule --}}
         @if (Auth::user()->categorie->value == \App\Enum\UserCategorieEnum::GESTION->value)
@@ -27,14 +27,15 @@
                         @csrf
 
                         <div class="card-body">
-                            <h2 class="mx-auto card-title dark:text-black">{{ __('gestion_de_la_flotte.TitleImage') }}</h2>
+                            <h2 class="mx-auto card-title dark:text-black">{{ __('gestion_de_la_flotte.TitleImage') }}<span class="text-red-600">*</span></h2>
                             {{-- Image du véhicule --}}
                             <img id="image_preview" src=""alt="En attente d'un image..." class="max-w-xs mx-auto text-red-500 rounded-lg smax:m-3">
                             <input
                                 id="vehicule_image"
                                 type="file"
                                 class="w-full file-input file-input-bordered file-input-error dark:bg-white"
-                                name="vehicule_image">
+                                name="vehicule_image" required>
+                            <x-input-error :messages="$errors->get('vehicule_image')" class="mt-2" />
                         </div>
 
                         <x-divider></x-divider>
@@ -49,14 +50,16 @@
 
                                     {{-- Identifiant --}}
                                     <div>
-                                        <x-input-label for="id" :value="__('gestion_de_la_flotte.LabelID')" />
-                                        <x-text-input id="id" name="id" type="text" class="block w-full mt-1" />
+                                        <x-input-label for="id" :value="__('gestion_de_la_flotte.LabelID')" :obligatoire=true />
+                                        <x-text-input id="id" name="id" type="text" class="block w-full mt-1" required />
+                                        <x-input-error :messages="$errors->get('id')" class="mt-2" />
                                     </div>
 
                                     {{-- Tarif journalier --}}
                                     <div>
-                                        <x-input-label for="tarifj" :value="__('gestion_de_la_flotte.LabelTarifJ')" />
-                                        <x-text-input id="tarifj" name="tarifj" type="text" class="block w-full mt-1" />
+                                        <x-input-label for="tarifj" :value="__('gestion_de_la_flotte.LabelTarifJ')" :obligatoire=true />
+                                        <x-text-input id="tarifj" name="tarifj" type="text" class="block w-full mt-1" required />
+                                        <x-input-error :messages="$errors->get('tarifj')" class="mt-2" />
                                     </div>
 
                                 </div>
@@ -65,8 +68,8 @@
 
                                     {{-- Marque du véhicule --}}
                                     <div>
-                                        <x-input-label for="marque" :value="__('gestion_de_la_flotte.LabelMarque')"/>
-                                        <x-text-input id="marque" list="marqueList" type="text" name="marque"/>
+                                        <x-input-label for="marque" :value="__('gestion_de_la_flotte.LabelMarque')" :obligatoire=true />
+                                        <x-text-input id="marque" list="marqueList" type="text" name="marque" required />
                                         <datalist id="marqueList">
                                             @forelse ($marques as $marque)
                                                 <option value="{{ $marque->libelle }}">
@@ -74,12 +77,13 @@
                                                 {{-- Aucune option --}}
                                             @endforelse
                                         </datalist>
+                                        <x-input-error :messages="$errors->get('marque')" class="mt-2" />
                                     </div>
 
                                     {{-- Modèle du véhicule --}}
                                     <div>
-                                        <x-input-label for="modele" :value="__('gestion_de_la_flotte.LabelModele')"/>
-                                        <x-text-input id="modele" list="modeleList" type="text" name="modele"/>
+                                        <x-input-label for="modele" :value="__('gestion_de_la_flotte.LabelModele')" :obligatoire=true />
+                                        <x-text-input id="modele" list="modeleList" type="text" name="modele" required />
                                         <datalist id="modeleList">
                                             @forelse ($modeles as $modele)
                                                 <option value="{{ $modele->libelle }}">
@@ -87,6 +91,7 @@
                                                 {{-- Aucune option --}}
                                             @endforelse
                                         </datalist>
+                                        <x-input-error :messages="$errors->get('modele')" class="mt-2" />
                                     </div>
 
                                 </div>
@@ -95,17 +100,18 @@
 
                                     {{-- Type du véhicule --}}
                                     <div class="w-full">
-                                        <x-input-label for="type" :value="__('gestion_de_la_flotte.LabelType')"/>
+                                        <x-input-label for="type" :value="__('gestion_de_la_flotte.LabelType')" :obligatoire=true required />
                                         <select id="type" name="type" class="w-full mt-1 select select-bordered dark:bg-white dark:text-black">
                                             @foreach (\App\Enum\VehiculeTypeEnum::cases() as $type)
                                                 <option value="{{ $type->value }}">{{ $type->value }}</option>
                                             @endforeach
                                         </select>
+                                        <x-input-error :messages="$errors->get('type')" class="mt-2" />
                                     </div>
 
                                     {{-- Statut du véhicule --}}
                                     <div class="w-full">
-                                        <x-input-label for="statut" :value="__('gestion_de_la_flotte.LabelStatut')"/>
+                                        <x-input-label for="statut" :value="__('gestion_de_la_flotte.LabelStatut')" :obligatoire=true required />
                                         <select id="statut" name="statut" class="w-full mt-1 select select-bordered dark:bg-white dark:text-black">
 
                                             @foreach (\App\Enum\VehiculeStatutEnum::cases() as $statut)
@@ -115,6 +121,7 @@
                                             @endforeach
 
                                         </select>
+                                        <x-input-error :messages="$errors->get('statut')" class="mt-2" />
                                     </div>
 
                                 </div>
@@ -131,7 +138,7 @@
                                         <input id="Automatique" type="radio" name="transmission" class="radio dark:radio-error checked:bg-[#ab0800] checked:hover:bg-[#ab0800] checked:active:bg-[#ab0800] checked:focus:bg-[#ab0800] focus:bg-[#ab0800] focus:outline-none focus:ring-1 focus:ring-[#ab0800]" value="{{ App\Enum\VehiculeTransmissionEnum::AUTO->value }}" />
                                         <x-input-label class="my-auto" for="Automatique" :value="__('gestion_de_la_flotte.LabelAutomatique')"/>
                                     </div>
-
+                                    <x-input-error :messages="$errors->get('transmission')" class="mt-2" />
                                 </div>
 
                                 {{-- Bouton pour ajouter un vehicule --}}
@@ -196,10 +203,11 @@
 
                                 {{-- Statut du vehicule --}}
                                 <div class="w-full card-actions">
-                                    <x-input-label for="statutVE" :value="__('gestion_de_la_flotte.LabelStatut')"/>
+                                    <x-input-label for="statutVE" :value="__('gestion_de_la_flotte.LabelStatut')" :obligatoire=true />
                                     <select id="statutVE" name="statutVE" class="w-full mt-1 select select-bordered dark:disabled:bg-slate-400 dark:bg-white"
                                             {{ $vehicule->statut == \App\Enum\VehiculeStatutEnum::HORSU->value ? 'disabled' : '' }}
-                                            {{ $vehicule->statut == \App\Enum\VehiculeStatutEnum::LOUER->value ? 'disabled' : '' }}>
+                                            {{ $vehicule->statut == \App\Enum\VehiculeStatutEnum::LOUER->value ? 'disabled' : '' }}
+                                            {{ Auth::user()->categorie->value == \App\Enum\UserCategorieEnum::ADMIN->value ? 'disabled' : '' }}>
                                         @foreach (\App\Enum\VehiculeStatutEnum::cases() as $statut)
                                             @switch($vehicule->statut)
                                                 @case(\App\Enum\VehiculeStatutEnum::DISPO->value)
@@ -226,9 +234,10 @@
                                             @endswitch
                                         @endforeach
                                     </select>
+                                    <x-input-error :messages="$errors->get('statutVE')" class="mt-2" />
 
                                     {{-- Si le vehicule est hors d'usage, on peut le supprimer --}}
-                                    @if ($vehicule->statut == \App\Enum\VehiculeStatutEnum::HORSU->value)
+                                    @if ($vehicule->statut == \App\Enum\VehiculeStatutEnum::HORSU->value && Auth::user()->categorie->value != \App\Enum\UserCategorieEnum::ADMIN->value)
                                         {{-- Supprimer un véhicule --}}
                                         <form action="{{ route('GdF.deleteCar', ['id' => $vehicule->id]) }}" method="post" name="formDelete" class="mx-auto">
                                             @csrf

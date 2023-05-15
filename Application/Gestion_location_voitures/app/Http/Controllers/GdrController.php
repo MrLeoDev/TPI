@@ -74,6 +74,12 @@ class GdrController extends Controller
                 ->with('clients', $clients ?? null);
     }
 
+    /**
+     * Réserver un véhicule par un gestionnaire ou un client
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function bookCar(Request $request)
     {
         // On valide les donnees selon la categorie de l'utilisateur

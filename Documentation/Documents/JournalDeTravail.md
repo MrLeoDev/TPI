@@ -257,8 +257,10 @@ Super content d'avoir terminer l'application, je peux enfin me concentrer sur la
 
 ### Etape du projet
 Mettre à jour le repos, le kanban, s'assurer que le journal de bord est bon, commencer la documentation technique.
+
 ### Objectifs
 Avoir fini la section TEST sur la documentation technique et que tout soit en ordre entre Kanban, Repos et fichiers.
+
 ### Déroulement de la journée
 >  8h00
 >  
@@ -278,15 +280,17 @@ J'ai pu discuter avec Kappel pour la réalisation de la section Test de la docum
 J'utilise une extension de vscode pour réaliser des "screens" de mon code, pour les intégrer à ma documentation, J'ai terminé dans la section Test : Couverture, Cadre, Infrastructure et pratiquement les tests fonctionnels. J'ai fractionné pas mal de code car beaucoup trop gros pour rentrer dans la doc.
 
 ### Bilan de la journée
-La documentation n'est forcement marrante à faire mais j'avance bien.  
+La documentation n'est pas forcement marrante à faire mais j'avance bien.  
 Evidemment, je souhaitais terminer la section de test mais il y avait pas mal de chose à dire.
 
 ## S2 : Jeudi 11 Mai 2023
 
 ### Etape du projet
 Faire la documentation
+
 ### Objectifs
-Finir la section Test, et commencer la section Gestion de projet.
+Finir la section Test,la section Gestion de projet et la planification et entamer l'analyse fonctionnel / organique.
+
 ### Déroulement de la journée
 >  9h00
 >  
@@ -298,11 +302,46 @@ Toujours en cours de réalisation de la section Test.
 
 >  15h30
 >  
-J'ai terminer la section "Tests", je réalise la section "Gestion de projet" et la section "Planification"
+J'ai terminer la section "Tests", la section "Gestion de projet" et la section "Planification". 
+La section "Analyse fontionnelle" est presque terminée, je me lance après sur la section " Analyse Organique ".
 
 >  18h30
 >  
-J'ai terminé les deux sections, maintenant je réalise la section "Analyse fontionnelle" mais avant j'effectue le Sitemap pour la structure de l'application.
+Section "Analyse fontionnelle" terminée! J'ai pratiquement terminé la section " Analyse Organique ".
 
 ### Bilan de la journée
 J'ai super bien avancé le manuel technique pour le coups je suis heureux.
+
+## S3 : Lundi 15 Mai 2023
+
+### Etape du projet
+Faire la documentation
+
+### Objectifs
+Finir la documentation technique, finir la documentation manuel avec l'intégration à l'application
+
+### Déroulement de la journée
+>  9h00
+>  
+Je me lance sur la finalisation de la documentation technique.
+
+>  10h30
+>  
+Il me reste plus que la conclusion et les annexes à faire. Puis je me lance sur le manuel utilisateur.
+
+>  15h30
+>  
+Manuel technique fini et le manuel utilisateur. Je me lance sur l'intégration sur l'application avec un bouton fixer en bas à droite de l'application pour acceder  
+au manuel en PDF.
+
+>  18h30
+>  
+Tout a été fait!  
+J'ai effectue entre temps à la correction de mon application car j'ai vu que j'ai oublié certaines exigence et retirer ce qui était inutile à l'application au final.  
+Bien evidemment il me manque la relecture de mes documents pour corriger de probable fautes d'orthographe et de synthaxe.  
+S'assurer que tout est bon ainsi qu'un dernier check up sur l'application.
+Le dernier document à réaliser est le résumé du rapport du TPI.
+
+### Bilan de la journée
+Je suis tellement heureux de voir le bout,  
+j'ai encore pas mal de boulot pour demain mais je le sens bien et je suis super de ce que j'ai produit.
