@@ -2,13 +2,17 @@
 .login-view {
   isolation: isolate;
   overflow: hidden;
-  background: #f4f4f5;
+  background: #f3f4f6 !important;
+  background-image: none !important;
 }
 
 .login-view::before,
 .login-view::after {
-  content: none;
-  display: none;
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  background-image: none !important;
+  filter: none !important;
 }
 
 .glv-logo {
