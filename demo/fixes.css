@@ -1,2 +1,10 @@
 /* Explicitly preserve the HTML hidden attribute against component display rules. */
 [hidden] { display: none !important; }
+
+/* Manual is now a real link, not a JavaScript-only button. */
+.manual-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
