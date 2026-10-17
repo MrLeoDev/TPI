@@ -7,6 +7,7 @@
   <meta name="description" content="Interactive static reconstruction of the original 2023 TPI car-rental management application.">
   <title>GLV — Interactive TPI Demo</title>
   <link rel="stylesheet" href="demo.css">
+  <link rel="stylesheet" href="fixes.css">
 </head>
 <body>
   <div class="demo-toolbar" aria-label="Demo controls">
@@ -34,10 +35,10 @@
         </div>
 
         <select class="language-select" id="loginLanguage" aria-label="Langue">
-          <option>Français</option>
-          <option>English</option>
-          <option>Deutsch</option>
-          <option>Italiano</option>
+          <option value="fr">Français</option>
+          <option value="en">English</option>
+          <option value="de">Deutsch</option>
+          <option value="it">Italiano</option>
         </select>
 
         <form id="loginForm" class="login-card">
@@ -62,7 +63,12 @@
           <button class="brand-button" data-page="accounts" aria-label="Accueil">
             <span class="glv-logo glv-logo-small"><span class="car-symbol">🚗</span><strong>GLV</strong></span>
           </button>
-          <select class="nav-language" aria-label="Langue"><option>FR</option><option>EN</option><option>DE</option><option>IT</option></select>
+          <select class="nav-language" aria-label="Langue">
+            <option value="fr">FR</option>
+            <option value="en">EN</option>
+            <option value="de">DE</option>
+            <option value="it">IT</option>
+          </select>
           <div id="navLinks" class="nav-links"></div>
           <div class="user-menu">
             <button id="userMenuButton" type="button"><span id="userName">Alex Martin</span>⌄</button>
@@ -88,5 +94,6 @@
   </dialog>
 
   <script src="demo.js"></script>
+  <script src="i18n.js"></script>
 </body>
 </html>
