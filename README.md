@@ -10,6 +10,12 @@
 </p>
 
 <p align="center">
+  <a href="https://mrleodev.github.io/TPI/"><strong>🌐 Live interactive showcase</strong></a>
+  &nbsp;·&nbsp;
+  <a href="Application/Gestion_location_voitures"><strong>💻 Browse source code</strong></a>
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/badge/PHP-8.1-777BB4?style=flat-square&logo=php&logoColor=white" alt="PHP 8.1" />
   <img src="https://img.shields.io/badge/Laravel-10-FF2D20?style=flat-square&logo=laravel&logoColor=white" alt="Laravel 10" />
   <img src="https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS" />
@@ -18,7 +24,7 @@
 </p>
 
 > **Portfolio note**  
-> This repository preserves the project I delivered for my Swiss **CFC application-development TPI**. The application source is intentionally kept as it was submitted; only the repository presentation may be improved over time.
+> This repository preserves the project I delivered for my Swiss **CFC application-development TPI**. The application source is intentionally kept as it was submitted; only the repository presentation may be improved over time. The GitHub Pages showcase is a static presentation built from the original project screenshots and does not expose the legacy Laravel application as a production service.
 
 ## 🎯 Project goal
 
@@ -114,11 +120,12 @@ The TPI deliverable also included extensive project documentation:
 
 If you only want to understand the result without installing the application:
 
-1. Start with the screenshots above.
-2. Read the **User Manual** for the complete functional flow.
-3. Read the **Work Journal** to follow the project decisions and progress during the TPI.
-4. Browse the **Technical Manual** and database model for the implementation choices.
-5. The original application source is available under [`Application/Gestion_location_voitures`](Application/Gestion_location_voitures).
+1. Open the **[interactive showcase](https://mrleodev.github.io/TPI/)** for a guided visual tour.
+2. Browse the screenshots below or in the documentation.
+3. Read the **User Manual** for the complete functional flow.
+4. Read the **Work Journal** to follow the project decisions and progress during the TPI.
+5. Browse the **Technical Manual** and database model for the implementation choices.
+6. The original application source is available under [`Application/Gestion_location_voitures`](Application/Gestion_location_voitures).
 
 ## 📁 Repository structure
 
@@ -148,6 +155,8 @@ L'objectif était de réaliser une application web complète permettant à une s
 
 Le code de l'application est volontairement conservé dans son état de remise afin de préserver le projet tel qu'il a été présenté lors de mon TPI. Seule la présentation du dépôt est modernisée pour permettre de comprendre rapidement le résultat.
 
+Une **[vitrine interactive GitHub Pages](https://mrleodev.github.io/TPI/)** présente les principaux écrans à partir des captures originales, sans exposer l'ancienne application Laravel comme service de production.
+
 ## ✨ Fonctionnalités principales
 
 - 👥 Gestion de plusieurs rôles : **Administrateur**, **Gestionnaire** et **Client**
@@ -166,11 +175,12 @@ Le code de l'application est volontairement conservé dans son état de remise a
 
 Il n'est pas nécessaire d'installer le projet pour comprendre ce qui a été réalisé :
 
-1. Les captures d'écran ci-dessus donnent un aperçu direct de l'application.
-2. Le [manuel utilisateur](Documentation/Documents/Manuel_utilisateur.docx) présente les différents parcours fonctionnels.
-3. Le [journal de travail](Documentation/Documents/JournalDeTravail.md) retrace la réalisation et les décisions prises pendant le TPI.
-4. Le [manuel technique](Documentation/Documents/Manuel_technique.docx) et la [documentation de la base de données](Documentation/BDD) détaillent la conception technique.
-5. Le code original est disponible dans [`Application/Gestion_location_voitures`](Application/Gestion_location_voitures).
+1. Commencez par la **[vitrine interactive](https://mrleodev.github.io/TPI/)** pour parcourir visuellement le projet.
+2. Les captures d'écran du dépôt donnent un aperçu direct de l'application.
+3. Le [manuel utilisateur](Documentation/Documents/Manuel_utilisateur.docx) présente les différents parcours fonctionnels.
+4. Le [journal de travail](Documentation/Documents/JournalDeTravail.md) retrace la réalisation et les décisions prises pendant le TPI.
+5. Le [manuel technique](Documentation/Documents/Manuel_technique.docx) et la [documentation de la base de données](Documentation/BDD) détaillent la conception technique.
+6. Le code original est disponible dans [`Application/Gestion_location_voitures`](Application/Gestion_location_voitures).
 
 </details>
 
