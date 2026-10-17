@@ -1,0 +1,2 @@
+/* Explicitly preserve the HTML hidden attribute against component display rules. */
+[hidden] { display: none !important; }
