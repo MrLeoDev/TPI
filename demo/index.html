@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#363A43">
+  <meta name="description" content="Interactive static reconstruction of the original 2023 TPI car-rental management application.">
+  <title>GLV — Interactive TPI Demo</title>
+  <link rel="stylesheet" href="demo.css">
+</head>
+<body>
+  <div class="demo-toolbar" aria-label="Demo controls">
+    <a class="demo-back" href="../">← Portfolio TPI</a>
+    <div class="demo-note"><span class="demo-dot"></span><strong>Reconstruction interactive</strong><span>· données fictives · aucun backend</span></div>
+    <div class="demo-controls">
+      <label>Rôle
+        <select id="roleSelect">
+          <option value="Gestionnaire">Gestionnaire</option>
+          <option value="Administrateur">Administrateur</option>
+          <option value="Client">Client</option>
+        </select>
+      </label>
+      <button id="themeToggle" type="button" title="Changer le thème">☀︎</button>
+      <button id="resetDemo" type="button">Réinitialiser</button>
+    </div>
+  </div>
+
+  <div id="glvRoot" class="glv-root dark">
+    <section id="loginView" class="login-view">
+      <div class="login-center">
+        <div class="glv-logo glv-logo-large" aria-label="GLV logo">
+          <span class="car-symbol">🚗</span>
+          <strong>GLV</strong>
+        </div>
+
+        <select class="language-select" id="loginLanguage" aria-label="Langue">
+          <option>Français</option>
+          <option>English</option>
+          <option>Deutsch</option>
+          <option>Italiano</option>
+        </select>
+
+        <form id="loginForm" class="login-card">
+          <h1>Connexion</h1>
+          <label>Email
+            <input id="loginEmail" type="email" value="gestionnaire.demo@tpi.local" required>
+          </label>
+          <label>Mot de passe
+            <input type="password" value="demo" required>
+          </label>
+          <label class="remember"><input type="checkbox"> <span>Se souvenir de moi</span></label>
+          <div class="login-actions"><button class="glv-primary" type="submit">SE CONNECTER</button></div>
+        </form>
+      </div>
+
+      <button class="manual-button" type="button" data-toast="Manuel utilisateur — démonstration statique">Manuel utilisateur</button>
+    </section>
+
+    <section id="appView" class="app-view" hidden>
+      <nav class="glv-nav">
+        <div class="nav-inner">
+          <button class="brand-button" data-page="accounts" aria-label="Accueil">
+            <span class="glv-logo glv-logo-small"><span class="car-symbol">🚗</span><strong>GLV</strong></span>
+          </button>
+          <select class="nav-language" aria-label="Langue"><option>FR</option><option>EN</option><option>DE</option><option>IT</option></select>
+          <div id="navLinks" class="nav-links"></div>
+          <div class="user-menu">
+            <button id="userMenuButton" type="button"><span id="userName">Alex Martin</span>⌄</button>
+            <div id="userDropdown" class="user-dropdown" hidden>
+              <button id="logoutButton" type="button">Déconnexion</button>
+            </div>
+          </div>
+          <button id="mobileMenuButton" class="mobile-menu-button" type="button" aria-label="Menu">☰</button>
+        </div>
+        <div id="mobileNav" class="mobile-nav" hidden></div>
+      </nav>
+
+      <main id="pageContent" class="page-content"></main>
+      <button class="manual-button app-manual" type="button" data-toast="Manuel utilisateur — démonstration statique">Manuel utilisateur</button>
+    </section>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <dialog id="demoModal" class="demo-modal">
+    <form method="dialog"><button class="modal-x" aria-label="Fermer">×</button></form>
+    <div id="modalContent"></div>
+  </dialog>
+
+  <script src="demo.js"></script>
+</body>
+</html>
