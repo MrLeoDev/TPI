@@ -2,30 +2,13 @@
 .login-view {
   isolation: isolate;
   overflow: hidden;
+  background: #f4f4f5;
 }
 
-.login-view::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  background-image: url('assets/login-saga.webp');
-  background-size: cover;
-  background-position: center;
-  filter: grayscale(100%);
-  transform: scale(1.02);
-}
-
+.login-view::before,
 .login-view::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: rgba(54, 58, 67, .82);
-}
-
-.light .login-view::after {
-  background: rgba(243, 244, 246, .82);
+  content: none;
+  display: none;
 }
 
 .glv-logo {
